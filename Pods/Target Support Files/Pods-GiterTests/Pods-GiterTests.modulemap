@@ -1,0 +1,6 @@
+framework module Pods_GiterTests {
+  umbrella header "Pods-GiterTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
