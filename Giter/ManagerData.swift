@@ -12,8 +12,9 @@ import SwiftyJSON
 import RealmSwift
 
 class ManagerData {
- /*   func getFileContent(url: String, filename: String) {
-        Alamofire.request("\(url)/\(filename)", method: .get).validate().responseJSON { response in
+    let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
+    func getFileContent(url: String, filename: String) {
+        Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -29,7 +30,7 @@ class ManagerData {
                 print("Error thing: \(error)")
             }
         }
-    } */
+    }
     
     func writeToFile(content: String, filename: String) {
         let currentFile = NSHomeDirectory() + "/Documents/\(filename)"
@@ -40,10 +41,11 @@ class ManagerData {
         }
     }
     
+    
     func loadFilesJSON(repository: String = "GeekBrainsUniversity") -> List<FileData> {
         let fileList = List<FileData>()
         let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/"
-        Alamofire.request(selfContentURL, method: .get).validate().responseJSON { response in
+        Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -72,7 +74,7 @@ class ManagerData {
     func loadRepoJSON() {
         var tempRepoList: [RepoData] = []
         let repoListURL = "https://api.github.com/users/soaltomas/repos"
-        Alamofire.request(repoListURL, method: .get).validate().responseJSON { response in
+        Alamofire.request(repoListURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -89,7 +91,7 @@ class ManagerData {
                     }
                 for repo in tempRepoList {
                     let selfContentURL = "https://api.github.com/repos/soaltomas/\(repo.name)/contents/"
-                    Alamofire.request(selfContentURL, method: .get).validate().responseJSON { response in
+                    Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: self.concurrentQueue) { response in
                         switch response.result {
                         case .success(let value):
                             let json = JSON(value)

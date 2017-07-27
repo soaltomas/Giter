@@ -11,6 +11,23 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+extension String {
+    //: ### Base64 encoding a string
+    func base64Encoded() -> String? {
+        if let data = self.data(using: .utf8) {
+            return data.base64EncodedString()
+        }
+        return nil
+    }
+    //: ### Base64 decoding a string
+    func base64Decoded() -> String? {
+        if let data = Data(base64Encoded: self) {
+            return String(data: data, encoding: .utf8)
+        }
+        return nil
+    }
+}
+
 class ViewController: UITableViewController {
     
     let manager: ManagerData = ManagerData()
@@ -26,7 +43,7 @@ class ViewController: UITableViewController {
             fileDataArray.append(value)
         }
         for value in fileDataArray {
-        manager.writeToFile(content: "Name: \(value.name)\nType: \(value.type)\nSize: \(value.size)\nSHA: \(value.sha)", filename: value.name)
+            manager.getFileContent(url: "https://api.github.com/repos/soaltomas/\(repoName)/contents/\(value.name)", filename: value.name)
         }
     
     }
@@ -48,6 +65,12 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = fileDataArray[indexPath.row].name
+        let image: UIImageView = cell.viewWithTag(5) as! UIImageView
+        if fileDataArray[indexPath.row].type == "dir" {
+            image.image = UIImage(named: "folder")
+        } else {
+            image.image = UIImage(named: "document")
+        }
         return cell
     }
     
@@ -57,14 +80,20 @@ class ViewController: UITableViewController {
                 let destinationVC = segue.destination as! TextViewController
                 do{
                     let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
-                    destinationVC.text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
+                    let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
+                    var result: String = ""
+                    for symbol in text.characters {
+                        if symbol != "\n" {
+                            result.append(symbol)
+                        }
+                    }
+                    destinationVC.text = result.base64Decoded()!
                 } catch let fileError as NSError {
                     print("Couldn't create file because of error: \(fileError)")
                 }
             }
         }
     }
-    
     
     @IBAction func goHome(segue: UIStoryboardSegue) {
         
