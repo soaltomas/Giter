@@ -33,6 +33,7 @@ class ViewController: UITableViewController {
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
     var fileDataArray: [FileData] = []
+    var dirName: String = ""
     
     
     override func viewDidLoad() {
@@ -45,10 +46,15 @@ class ViewController: UITableViewController {
         for value in fileDataArray {
             manager.getFileContent(url: "https://api.github.com/repos/soaltomas/\(repoName)/contents/\(value.name)", filename: value.name)
         }
-    
+        NotificationCenter.default.addObserver(self, selector: #selector(goToDir), name: NSNotification.Name(rawValue: "goToDir"), object: nil)
     }
     
-
+    func goToDir() {
+            fileDataArray = manager.loadFilesJSON(repository: repoName, path: dirName)
+            self.tableView.reloadData()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -71,13 +77,13 @@ class ViewController: UITableViewController {
         } else {
             image.image = UIImage(named: "document")
         }
+        
         return cell
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "textFile" {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
+        if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let destinationVC = segue.destination as! TextViewController
                 do{
                     let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
@@ -87,18 +93,20 @@ class ViewController: UITableViewController {
                             result.append(symbol)
                         }
                     }
-                    destinationVC.text = result.base64Decoded()!
+                    
+                    tvc.text = result.base64Decoded()!
                 } catch let fileError as NSError {
                     print("Couldn't create file because of error: \(fileError)")
                 }
+                navigationController?.pushViewController(tvc, animated: true)
             }
+        } else {
+            dirName = fileDataArray[indexPath.row].name
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
         }
     }
-    
-    @IBAction func goHome(segue: UIStoryboardSegue) {
-        
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "goToDir"), object: nil)
     }
-
-
 }
 

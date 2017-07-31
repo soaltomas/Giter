@@ -19,7 +19,6 @@ class ManagerData {
             case .success(let value):
                 let json = JSON(value)
                 let text = json["content"].stringValue
-                print("This is text: \(text)")
                 let currentFile = NSHomeDirectory() + "/Documents/\(filename)"
                 do {
                     try text.write(toFile: currentFile, atomically: true, encoding: String.Encoding.utf8)
@@ -42,9 +41,9 @@ class ManagerData {
     }
     
     
-    func loadFilesJSON(repository: String = "GeekBrainsUniversity") -> List<FileData> {
-        let fileList = List<FileData>()
-        let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/"
+    func loadFilesJSON(repository: String = "GeekBrainsUniversity", path: String = "") -> [FileData] {
+        var fileList = [FileData]()
+        let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/\(path)"
         Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
