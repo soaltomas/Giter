@@ -20,18 +20,10 @@ class SelfRepository: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-       // self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL)
         if manager.loadRepo == nil {
             manager.loadRepoJSON()
         } else {
-            repoArray = manager.loadRepoListDB()
+            ManagerData.singleManager.getRepoDataFromDB()
         }
 
         // Do any additional setup after loading the view.
@@ -62,18 +54,18 @@ class SelfRepository: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return repoArray.count
+        return ManagerData.singleManager.repoData.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 
         let labelName: UILabel = cell.viewWithTag(1) as! UILabel
-        labelName.text = repoArray[indexPath.row].name
+        labelName.text = ManagerData.singleManager.repoData[indexPath.row].name
         let image: UIImageView = cell.viewWithTag(2) as! UIImageView
         image.image = UIImage(named: "github-integration")
         let labelLanguage: UILabel = cell.viewWithTag(3) as! UILabel
-        labelLanguage.text = repoArray[indexPath.row].language
+        labelLanguage.text = ManagerData.singleManager.repoData[indexPath.row].language
 
     
         return cell
@@ -84,7 +76,7 @@ class SelfRepository: UICollectionViewController {
             if let destination = segue.destination as? ViewController {
                 let cell = sender as! UICollectionViewCell
                 let indexPath = self.collectionView?.indexPath(for: cell)
-                let selectedItem = repoArray[(indexPath?.row)!].name
+                let selectedItem = ManagerData.singleManager.repoData[(indexPath?.row)!].name
                 destination.repoName = selectedItem
             }
         }

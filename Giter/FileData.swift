@@ -2,7 +2,7 @@
 //  FileData.swift
 //  Giter
 //
-//  Created by Артем Полушин on 09.07.17.
+//  Created by Артем Полушин on 06.08.17.
 //  Copyright © 2017 Артем Полушин. All rights reserved.
 //
 

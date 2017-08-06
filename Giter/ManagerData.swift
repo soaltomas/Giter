@@ -11,7 +11,29 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+private let _singleManager = ManagerData()
+
 class ManagerData {
+    
+    class var singleManager: ManagerData {
+        return _singleManager
+    }
+    
+    private var _repoData: [RepoData] = []
+    
+    var repoData: [RepoData] {
+        var repoDataCopy: [RepoData]!
+        concurrentQueue.sync {
+            repoDataCopy = self._repoData
+        }
+        return repoDataCopy
+    }
+    
+    func getRepoDataFromDB() {
+        let realm = try! Realm()
+        self._repoData = Array(realm.objects(RepoData.self))
+    }
+    
     let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
     func getFileContent(url: String, filename: String) {
         Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
@@ -40,9 +62,8 @@ class ManagerData {
         }
     }
     
-    
     func loadFilesJSON(repository: String = "GeekBrainsUniversity", path: String = "") -> [FileData] {
-        var fileList = [FileData]()
+        var fileList: [FileData] = []
         let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/\(path)"
         Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
@@ -115,6 +136,7 @@ class ManagerData {
                             try! realm.write {
                                 realm.add(repo, update: true)
                             }
+
                         case .failure(let error):
                             print("Error thing: \(error)")
                         }
@@ -136,12 +158,12 @@ class ManagerData {
     }
     
     func loadRepoListDB() -> [RepoData] {
-        var repoList: [RepoData] = []
+        var resultList: [RepoData] = []
         let data = try! Realm().objects(RepoData.self)
         for value in data {
-            repoList.append(value)
+            resultList.append(value)
         }
-        return repoList
+        return resultList
     }
     
     var loadRepo: AnyObject? {
