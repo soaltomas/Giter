@@ -32,7 +32,7 @@ class ViewController: UITableViewController {
     
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
-    var fileDataArray: [FileData] = []
+    var fileDataArray: [String] = []
     var dirName: String = ""
     
     
@@ -40,11 +40,11 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL)
         let repository = manager.loadDB(repository: repoName)
-        for value in repository[0].fileList {
-            fileDataArray.append(value)
+        for value in repository {
+            fileDataArray.append(value.url)
         }
         for value in fileDataArray {
-            manager.getFileContent(url: "https://api.github.com/repos/soaltomas/\(repoName)/contents/\(value.name)", filename: value.name)
+            manager.getFileContent(url: "https://api.github.com/repos/soaltomas/\(repoName)/contents/\(value)", filename: value)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(goToDir), name: NSNotification.Name(rawValue: "goToDir"), object: nil)
     }
@@ -70,22 +70,22 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = fileDataArray[indexPath.row].name
+        cell.textLabel?.text = fileDataArray[indexPath.row]
         let image: UIImageView = cell.viewWithTag(5) as! UIImageView
-        if fileDataArray[indexPath.row].type == "dir" {
-            image.image = UIImage(named: "folder")
-        } else {
+        //if fileDataArray[indexPath.row] == "dir" {
+          //  image.image = UIImage(named: "folder")
+       // } else {
             image.image = UIImage(named: "document")
-        }
+        //}
         
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
-        if fileDataArray[indexPath.row].type == "file" {
+       // if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 do{
-                    let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
+                    let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row])"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
                     var result: String = ""
                     for symbol in text.characters {
@@ -100,13 +100,14 @@ class ViewController: UITableViewController {
                 }
                 navigationController?.pushViewController(tvc, animated: true)
             }
-        } else {
-            dirName = fileDataArray[indexPath.row].name
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
-        }
+//        } else {
+//            dirName = fileDataArray[indexPath.row]
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+//        }
     }
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "goToDir"), object: nil)
-    }
+//    deinit {
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+//    }
 }
+
 
