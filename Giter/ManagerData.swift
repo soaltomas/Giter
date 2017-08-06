@@ -14,7 +14,6 @@ import RealmSwift
 private let _singleManager = ManagerData()
 
 class ManagerData {
-<<<<<<< HEAD
     
     class var singleManager: ManagerData {
         return _singleManager
@@ -36,12 +35,8 @@ class ManagerData {
     }
     
     let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
-=======
-    let accessData = AccessData()
-   // let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
->>>>>>> a1edb97e24dc899096cda160ce6c04f9f3258ea2
     func getFileContent(url: String, filename: String) {
-        Alamofire.request(url, method: .get).validate().responseJSON() { response in
+        Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -67,22 +62,27 @@ class ManagerData {
         }
     }
     
-<<<<<<< HEAD
     func loadFilesJSON(repository: String = "GeekBrainsUniversity", path: String = "") -> [FileData] {
         var fileList: [FileData] = []
-=======
-    
-    func loadFilesJSON(repository: String = "GeekBrainsUniversity", path: String = "") -> [String] {
-        var fileList: [String] = []
->>>>>>> a1edb97e24dc899096cda160ce6c04f9f3258ea2
         let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/\(path)"
-        Alamofire.request(selfContentURL, method: .get).validate().responseJSON() { response in
+        Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
                         var i: Int = 0
                         while i < json.array!.count {
-                            fileList.append(json[i]["name"].stringValue)
+                            let fileData = FileData()
+                            fileData.name = json[i]["name"].stringValue
+                            fileData.path = json[i]["path"].stringValue
+                            fileData.sha = json[i]["sha"].stringValue
+                            fileData.size = json[i]["size"].intValue
+                            fileData.url = json[i]["url"].stringValue
+                            fileData.html_url = json[i]["html_url"].stringValue
+                            fileData.git_url = json[i]["git_url"].stringValue
+                            fileData.download_url = json[i]["download_url"].stringValue
+                            fileData.type = json[i]["type"].stringValue
+                            fileData.content = json[i]["content"].stringValue
+                            fileList.append(fileData)
                             i += 1
                         }
             case .failure(let error):
@@ -94,7 +94,7 @@ class ManagerData {
     func loadRepoJSON() {
         var tempRepoList: [RepoData] = []
         let repoListURL = "https://api.github.com/users/soaltomas/repos"
-        Alamofire.request(repoListURL, method: .get).validate().responseJSON() { response in
+        Alamofire.request(repoListURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -106,11 +106,9 @@ class ManagerData {
                         repoData.repoDescription = json[i]["description"].stringValue
                         repoData.language = json[i]["language"].stringValue
                         repoData.url = json[i]["url"].stringValue
-                        self.loadRepo = true as AnyObject
-                        self.accessData.addData(newData: repoData)
+                        tempRepoList.append(repoData)
                         i += 1
                     }
-<<<<<<< HEAD
                 for repo in tempRepoList {
                     let selfContentURL = "https://api.github.com/repos/soaltomas/\(repo.name)/contents/"
                     Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: self.concurrentQueue) { response in
@@ -145,28 +143,8 @@ class ManagerData {
                     }
                     
                 }
-=======
-//                for repo in tempRepoList {
-//                    let selfContentURL = "https://api.github.com/repos/soaltomas/\(repo.name)/contents/"
-//                    Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: self.concurrentQueue) { response in
-//                        switch response.result {
-//                        case .success(let value):
-//                            let json = JSON(value)
-//                            var i: Int = 0
-//                            while i < json.array!.count {
-//                                repo.fileList.append(json[i]["name"].stringValue)
-//                                i += 1
-//                            }
-//                            self.loadRepo = true as AnyObject
-//                            self.accessData.addData(newData: repo)
-//                        case .failure(let error):
-//                            print("Error thing: \(error)")
-//                        }
-//                    }
-//                    
-//                }
->>>>>>> a1edb97e24dc899096cda160ce6c04f9f3258ea2
 
+                
                 
             case .failure(let error):
                 print("Error thing: \(error)")
@@ -176,16 +154,12 @@ class ManagerData {
     }
     
     func loadDB(repository: String) -> Results<RepoData> {
-        return accessData.getData().filter("name BEGINSWITH %@", repository)
+        return try! Realm().objects(RepoData.self).filter("name BEGINSWITH %@", repository)
     }
     
     func loadRepoListDB() -> [RepoData] {
         var resultList: [RepoData] = []
-<<<<<<< HEAD
         let data = try! Realm().objects(RepoData.self)
-=======
-        let data = accessData.getData()
->>>>>>> a1edb97e24dc899096cda160ce6c04f9f3258ea2
         for value in data {
             resultList.append(value)
         }

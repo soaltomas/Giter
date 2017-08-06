@@ -15,6 +15,7 @@ class RepoData: Object {
     dynamic var repoDescription: String = ""
     dynamic var language: String = ""
     dynamic var url: String = ""
+    var fileList = List<FileData>()
     
     override static func primaryKey() -> String? {
         return "id"
