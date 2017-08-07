@@ -28,6 +28,14 @@ extension String {
     }
 }
 
+protocol GetDirData {
+     func loadDirContent(repository: String, path: String)
+}
+
+protocol AddHeader {
+    func addHeader(name: String)
+}
+
 class ViewController: UITableViewController {
     
     let manager: ManagerData = ManagerData()
@@ -35,6 +43,8 @@ class ViewController: UITableViewController {
     var fileDataArray: [FileData] = []
     var dirName: String = ""
     
+    var delegate1: GetDirData = ManagerData.singleManager
+    var delegate2: AddHeader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +60,8 @@ class ViewController: UITableViewController {
     }
     
     func goToDir() {
-            fileDataArray = manager.loadFilesJSON(repository: repoName, path: dirName)
+            delegate1.loadDirContent(repository: repoName, path: dirName)
+            fileDataArray = ManagerData.singleManager.fileList
             self.tableView.reloadData()
     }
     
@@ -82,9 +93,11 @@ class ViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
+        delegate2 = tvc
         if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 do{
+                    delegate2?.addHeader(name: fileDataArray[indexPath.row].name)
                     let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
                     var result: String = ""

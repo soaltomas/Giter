@@ -13,7 +13,7 @@ import RealmSwift
 
 private let _singleManager = ManagerData()
 
-class ManagerData {
+class ManagerData: GetDirData {
     
     class var singleManager: ManagerData {
         return _singleManager
@@ -33,6 +33,8 @@ class ManagerData {
         let realm = try! Realm()
         self._repoData = Array(realm.objects(RepoData.self))
     }
+    
+    var fileList: [FileData] = [] //---List for display directory content
     
     let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
     func getFileContent(url: String, filename: String) {
@@ -62,8 +64,7 @@ class ManagerData {
         }
     }
     
-    func loadFilesJSON(repository: String = "GeekBrainsUniversity", path: String = "") -> [FileData] {
-        var fileList: [FileData] = []
+    func loadDirContent(repository: String = "GeekBrainsUniversity", path: String = "") {
         let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/\(path)"
         Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
             switch response.result {
@@ -82,14 +83,13 @@ class ManagerData {
                             fileData.download_url = json[i]["download_url"].stringValue
                             fileData.type = json[i]["type"].stringValue
                             fileData.content = json[i]["content"].stringValue
-                            fileList.append(fileData)
+                            self.fileList.append(fileData)
                             i += 1
                         }
             case .failure(let error):
                 print("Error thing: \(error)")
             }
         }
-        return fileList
     }
     func loadRepoJSON() {
         var tempRepoList: [RepoData] = []

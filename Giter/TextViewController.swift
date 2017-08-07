@@ -8,13 +8,20 @@
 
 import UIKit
 
-class TextViewController: UIViewController {
+class TextViewController: UIViewController, AddHeader {
     
+    @IBOutlet weak var header: UILabel!
     var text: String = ""
+    var headerText: String = ""
     @IBOutlet var textView : UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.text = text
+        header.text = headerText
+    }
+    
+    func addHeader(name: String) {
+        headerText = name
     }
 
     override func didReceiveMemoryWarning() {
