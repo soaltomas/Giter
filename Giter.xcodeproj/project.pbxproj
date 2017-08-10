@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		800D622562254F001C045855 /* Pods_GiterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4926CD92320210B7FAF1BABE /* Pods_GiterTests.framework */; };
 		B8730CAA0770DBAAC07915B6 /* Pods_GiterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41CE72AA7B802C0A54B95403 /* Pods_GiterUITests.framework */; };
+		C35F3D471F3C62B200E87A27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C35F3D461F3C62B200E87A27 /* GoogleService-Info.plist */; };
+		C35F3D501F3C821F00E87A27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */; };
 		C39FB7CB1F262A2E000928B2 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39FB7CA1F262A2E000928B2 /* TextViewController.swift */; };
 		C3AC5E1F1F33607600284866 /* AccessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AC5E1E1F33607500284866 /* AccessData.swift */; };
 		C3BA8CFB1F120DCD0082CB6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */; };
@@ -51,6 +53,9 @@
 		63A980C46EF117EFB6467F8A /* Pods-GiterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiterTests/Pods-GiterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9119DF54D1E3A31DA453E560 /* Pods-GiterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiterTests/Pods-GiterTests.release.xcconfig"; sourceTree = "<group>"; };
 		B5C32075610312FD02D3B847 /* Pods_Giter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Giter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35F3D461F3C62B200E87A27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C35F3D4A1F3C74E400E87A27 /* Giter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Giter-Bridging-Header.h"; sourceTree = "<group>"; };
+		C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C39FB7CA1F262A2E000928B2 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		C3AC5E1E1F33607500284866 /* AccessData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessData.swift; sourceTree = "<group>"; };
 		C3BA8CF71F120DCD0082CB6C /* Giter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Giter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,14 +148,17 @@
 				C3BA8CFC1F120DCD0082CB6C /* ViewController.swift */,
 				C3AC5E1E1F33607500284866 /* AccessData.swift */,
 				C39FB7CA1F262A2E000928B2 /* TextViewController.swift */,
+				C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */,
 				C3BF2D6B1F1CB30E00AF35D9 /* SelfRepository.swift */,
 				C3BF2D6D1F1CCD8700AF35D9 /* RepoData.swift */,
 				C3BA8D2A1F1211DD0082CB6C /* ManagerData.swift */,
 				C3E8A62F1F36CD7A00B7903A /* FileData.swift */,
 				C3BA8CFE1F120DCD0082CB6C /* Main.storyboard */,
+				C35F3D461F3C62B200E87A27 /* GoogleService-Info.plist */,
 				C3BA8D011F120DCD0082CB6C /* Assets.xcassets */,
 				C3BA8D031F120DCD0082CB6C /* LaunchScreen.storyboard */,
 				C3BA8D061F120DCD0082CB6C /* Info.plist */,
+				C35F3D4A1F3C74E400E87A27 /* Giter-Bridging-Header.h */,
 			);
 			path = Giter;
 			sourceTree = "<group>";
@@ -260,6 +268,7 @@
 				TargetAttributes = {
 					C3BA8CF61F120DCD0082CB6C = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					C3BA8D0A1F120DCD0082CB6C = {
@@ -300,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA8D051F120DCD0082CB6C /* LaunchScreen.storyboard in Resources */,
+				C35F3D471F3C62B200E87A27 /* GoogleService-Info.plist in Resources */,
 				C3BA8D021F120DCD0082CB6C /* Assets.xcassets in Resources */,
 				C3BA8D001F120DCD0082CB6C /* Main.storyboard in Resources */,
 			);
@@ -471,6 +481,7 @@
 				C3BA8CFB1F120DCD0082CB6C /* AppDelegate.swift in Sources */,
 				C39FB7CB1F262A2E000928B2 /* TextViewController.swift in Sources */,
 				C3AC5E1F1F33607600284866 /* AccessData.swift in Sources */,
+				C35F3D501F3C821F00E87A27 /* LoginViewController.swift in Sources */,
 				C3BF2D6C1F1CB30E00AF35D9 /* SelfRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,10 +635,13 @@
 			baseConfigurationReference = DDDD20B8055AD90C054C0769 /* Pods-Giter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Giter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Giter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Giter/Giter-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -637,10 +651,12 @@
 			baseConfigurationReference = 1F9D049B7A918BFF431EAE6F /* Pods-Giter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Giter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Giter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Giter/Giter-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

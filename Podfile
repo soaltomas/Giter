@@ -8,6 +8,9 @@ pod 'Alamofire', '~> 4.5'
 pod 'RealmSwift', '~> 2.8'
 pod 'SwiftyJSON', '~> 3.1'
 pod 'NVHTarGzip', '~> 1.0'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
+pod 'Firebase/Auth'
 
   # Pods for Giter
 
