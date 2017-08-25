@@ -15,6 +15,12 @@ private let _singleManager = ManagerData()
 
 class ManagerData {
     
+    struct City {
+        let name: String
+        let lon: Double
+        let lat: Double
+    }
+    
     class var singleManager: ManagerData {
         return _singleManager
     }
@@ -35,6 +41,9 @@ class ManagerData {
     }
     
     var fileList: [FileData] = [] //---List for display directory content
+    
+    var cityList: [City] = [] //---temporary list for save city
+    
     
     let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
     let serialQueue = DispatchQueue(label: "serial_queue")
@@ -170,5 +179,30 @@ class ManagerData {
             UserDefaults.standard.synchronize()
         }
     }
+    
+    
+    
+    
+    func loadOWMJSON()  {
+        let url = "http://samples.openweathermap.org/data/2.5/box/city?bbox=12,32,15,37,10&appid=90ed5e72b54eb9d0573beeec4a2e19ce"
+        Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                for (_, subJson) in json["list"] {
+                    let city = City(name: subJson["name"].stringValue, lon: subJson["coord"]["lon"].doubleValue, lat: subJson["coord"]["lat"].doubleValue)
+                    self.cityList.append(city)
+                    
+                }
+                self.loadRepo = true as AnyObject
+                
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+        
+    }
+    
     
 }

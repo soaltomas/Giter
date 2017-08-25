@@ -13,6 +13,7 @@
 		C35F3D501F3C821F00E87A27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */; };
 		C39FB7CB1F262A2E000928B2 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39FB7CA1F262A2E000928B2 /* TextViewController.swift */; };
 		C3A44ED71F5043D6005815BA /* MapKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A44ED61F5043D6005815BA /* MapKitViewController.swift */; };
+		C3A44ED91F507DD9005815BA /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A44ED81F507DD9005815BA /* MapPin.swift */; };
 		C3AC5E1F1F33607600284866 /* AccessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AC5E1E1F33607500284866 /* AccessData.swift */; };
 		C3BA8CFB1F120DCD0082CB6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */; };
 		C3BA8CFD1F120DCD0082CB6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8CFC1F120DCD0082CB6C /* ViewController.swift */; };
@@ -59,6 +60,7 @@
 		C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C39FB7CA1F262A2E000928B2 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		C3A44ED61F5043D6005815BA /* MapKitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapKitViewController.swift; sourceTree = "<group>"; };
+		C3A44ED81F507DD9005815BA /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		C3AC5E1E1F33607500284866 /* AccessData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessData.swift; sourceTree = "<group>"; };
 		C3BA8CF71F120DCD0082CB6C /* Giter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Giter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				C3A44ED61F5043D6005815BA /* MapKitViewController.swift */,
 				C3AC5E1E1F33607500284866 /* AccessData.swift */,
 				C39FB7CA1F262A2E000928B2 /* TextViewController.swift */,
+				C3A44ED81F507DD9005815BA /* MapPin.swift */,
 				C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */,
 				C3BF2D6B1F1CB30E00AF35D9 /* SelfRepository.swift */,
 				C3BF2D6D1F1CCD8700AF35D9 /* RepoData.swift */,
@@ -478,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA8CFD1F120DCD0082CB6C /* ViewController.swift in Sources */,
+				C3A44ED91F507DD9005815BA /* MapPin.swift in Sources */,
 				C3BF2D6E1F1CCD8700AF35D9 /* RepoData.swift in Sources */,
 				C3BA8D2B1F1211DD0082CB6C /* ManagerData.swift in Sources */,
 				C3E8A6301F36CD7A00B7903A /* FileData.swift in Sources */,

@@ -16,6 +16,8 @@ class MapKitViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    let manager: ManagerData = ManagerData()
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.last?.coordinate {
             print(currentLocation)
@@ -36,11 +38,22 @@ class MapKitViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        manager.loadOWMJSON()
+        sleep(1)
+        for city in manager.cityList {
+            let regionRadius: CLLocationDistance = 1000000
+            let placeLocation  = CLLocationCoordinate2D(latitude: city.lat, longitude: city.lon)
+            let coordinateRegion = MKCoordinateRegionMakeWithDistance(placeLocation, regionRadius * 2.0, regionRadius * 2.0)
+            mapView.setRegion(coordinateRegion, animated: true)
+            let placeMark = MapPin(coordinate: placeLocation, title: city.name, subtitle: "town")
+            mapView.addAnnotation(placeMark)
+        }
 
-        self.locationManager.delegate = self
+     /*   self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
+        self.locationManager.startUpdatingLocation()*/
     }
 
     override func didReceiveMemoryWarning() {
