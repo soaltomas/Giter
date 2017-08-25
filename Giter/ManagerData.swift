@@ -13,7 +13,7 @@ import RealmSwift
 
 private let _singleManager = ManagerData()
 
-class ManagerData: GetDirData {
+class ManagerData {
     
     class var singleManager: ManagerData {
         return _singleManager
@@ -37,8 +37,10 @@ class ManagerData: GetDirData {
     var fileList: [FileData] = [] //---List for display directory content
     
     let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
+    let serialQueue = DispatchQueue(label: "serial_queue")
+    
     func getFileContent(url: String, filename: String) {
-        Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
+        Alamofire.request(url, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -64,37 +66,63 @@ class ManagerData: GetDirData {
         }
     }
     
-    func loadDirContent(repository: String = "GeekBrainsUniversity", path: String = "") {
-        let selfContentURL = "https://api.github.com/repos/soaltomas/\(repository)/contents/\(path)"
-        Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                        var i: Int = 0
-                        while i < json.array!.count {
-                            let fileData = FileData()
-                            fileData.name = json[i]["name"].stringValue
-                            fileData.path = json[i]["path"].stringValue
-                            fileData.sha = json[i]["sha"].stringValue
-                            fileData.size = json[i]["size"].intValue
-                            fileData.url = json[i]["url"].stringValue
-                            fileData.html_url = json[i]["html_url"].stringValue
-                            fileData.git_url = json[i]["git_url"].stringValue
-                            fileData.download_url = json[i]["download_url"].stringValue
-                            fileData.type = json[i]["type"].stringValue
-                            fileData.content = json[i]["content"].stringValue
-                            self.fileList.append(fileData)
-                            i += 1
-                        }
-            case .failure(let error):
-                print("Error thing: \(error)")
-            }
-        }
+    func getNameOfPath(path: String) -> String {
+        let stringArray = path.components(separatedBy: "/")
+        return stringArray[stringArray.count - 1]
     }
+    
+    
+    func loadJSON(repository: RepoData, pathToDir: String) {
+        let realm = try! Realm()
+            let selfContentURL = "\(pathToDir)?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+            Alamofire.request(selfContentURL, method: .get).validate().responseJSON() { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    var i: Int = 0
+                    while i < json.array!.count {
+                        let fileData = FileData()
+                        //  fileData.id = FileData.incrementId()
+                        fileData.name = json[i]["name"].stringValue
+                        fileData.path = json[i]["path"].stringValue
+                        fileData.sha = json[i]["sha"].stringValue
+                        fileData.size = json[i]["size"].intValue
+                        fileData.url = json[i]["url"].stringValue
+                        fileData.html_url = json[i]["html_url"].stringValue
+                        fileData.git_url = json[i]["git_url"].stringValue
+                        fileData.download_url = json[i]["download_url"].stringValue
+                        fileData.type = json[i]["type"].stringValue
+                        fileData.content = json[i]["content"].stringValue
+                        if pathToDir == "\(repository.url)/contents" {
+                            repository.fileList.append(fileData)
+                        } else {
+                            try! realm.write {
+                            for file in repository.fileList {
+                                if file.name == self.getNameOfPath(path: pathToDir) {
+                                    file.fileList.append(fileData)
+                                }
+                            }
+                            }
+                        }
+                        i += 1
+                    }
+                    self.loadRepo = true as AnyObject
+                    try! realm.write {
+                        realm.add(repository, update: true)
+                    }
+                    
+                case .failure(let error):
+                    print("Error thing: \(error)")
+                }
+            }
+            
+        }
+    
+    
     func loadRepoJSON() {
         var tempRepoList: [RepoData] = []
-        let repoListURL = "https://api.github.com/users/soaltomas/repos"
-        Alamofire.request(repoListURL, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
+        let repoListURL = "https://api.github.com/users/soaltomas/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+        Alamofire.request(repoListURL, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -110,47 +138,14 @@ class ManagerData: GetDirData {
                         i += 1
                     }
                 for repo in tempRepoList {
-                    let selfContentURL = "https://api.github.com/repos/soaltomas/\(repo.name)/contents/"
-                    Alamofire.request(selfContentURL, method: .get).validate().responseJSON(queue: self.concurrentQueue) { response in
-                        switch response.result {
-                        case .success(let value):
-                            let json = JSON(value)
-                            var i: Int = 0
-                            while i < json.array!.count {
-                                let fileData = FileData()
-                                fileData.name = json[i]["name"].stringValue
-                                fileData.path = json[i]["path"].stringValue
-                                fileData.sha = json[i]["sha"].stringValue
-                                fileData.size = json[i]["size"].intValue
-                                fileData.url = json[i]["url"].stringValue
-                                fileData.html_url = json[i]["html_url"].stringValue
-                                fileData.git_url = json[i]["git_url"].stringValue
-                                fileData.download_url = json[i]["download_url"].stringValue
-                                fileData.type = json[i]["type"].stringValue
-                                fileData.content = json[i]["content"].stringValue
-                                repo.fileList.append(fileData)
-                                i += 1
-                            }
-                            let realm = try! Realm()
-                            self.loadRepo = true as AnyObject
-                            try! realm.write {
-                                realm.add(repo, update: true)
-                            }
-
-                        case .failure(let error):
-                            print("Error thing: \(error)")
-                        }
-                    }
-                    
+                    self.loadJSON(repository: repo, pathToDir: "\(repo.url)/contents")
                 }
-
                 
                 
             case .failure(let error):
                 print("Error thing: \(error)")
             }
         }
-        
     }
     
     func loadDB(repository: String) -> Results<RepoData> {

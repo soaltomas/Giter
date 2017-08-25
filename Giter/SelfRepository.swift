@@ -20,6 +20,7 @@ class SelfRepository: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(Realm.Configuration.defaultConfiguration.fileURL)
         if manager.loadRepo == nil {
             manager.loadRepoJSON()
         } else {

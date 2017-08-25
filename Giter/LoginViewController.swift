@@ -30,14 +30,15 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func tryLogin(_ sender: Any) {
-        Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
-            if let error = error {
-                self.errorText.text = "Incorrect e-mail or password"
-            }
-            else if let user = user {
-                self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
-            }
-        }
+//        Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
+//            if let error = error {
+//                self.errorText.text = "Incorrect e-mail or password"
+//            }
+//            else if let user = user {
+//                self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
+//            }
+//        }
+        self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
     }
     /*
     // MARK: - Navigation

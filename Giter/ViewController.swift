@@ -28,10 +28,6 @@ extension String {
     }
 }
 
-protocol GetDirData {
-     func loadDirContent(repository: String, path: String)
-}
-
 protocol AddHeader {
     func addHeader(name: String)
 }
@@ -40,10 +36,9 @@ class ViewController: UITableViewController {
     
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
-    var fileDataArray: [FileData] = []
-    var dirName: String = ""
+    var fileDataArray = List<FileData>()
+    var dirUrl: String = ""
     
-    var delegate1: GetDirData = ManagerData.singleManager
     var delegate2: AddHeader?
     
     override func viewDidLoad() {
@@ -54,14 +49,25 @@ class ViewController: UITableViewController {
             fileDataArray.append(value)
         }
         for value in fileDataArray {
-            manager.getFileContent(url: "https://api.github.com/repos/soaltomas/\(repoName)/contents/\(value.name)", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(goToDir), name: NSNotification.Name(rawValue: "goToDir"), object: nil)
     }
     
     func goToDir() {
-            delegate1.loadDirContent(repository: repoName, path: dirName)
-            fileDataArray = ManagerData.singleManager.fileList
+        //delegate1.loadDirContent(repository: repoName, path: dirName)
+        let repository = manager.loadDB(repository: repoName)[0]
+        manager.loadJSON(repository: repository, pathToDir: dirUrl)
+        let tempFileArray = manager.loadDB(repository: repoName)[0].fileList
+        for file in tempFileArray {
+            if file.name == manager.getNameOfPath(path: dirUrl) {
+                fileDataArray = file.fileList
+                break
+            }
+        }
+        for value in fileDataArray {
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+        }
             self.tableView.reloadData()
     }
     
@@ -114,7 +120,7 @@ class ViewController: UITableViewController {
                 navigationController?.pushViewController(tvc, animated: true)
             }
         } else {
-            dirName = fileDataArray[indexPath.row].name
+            dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
         }
     }
