@@ -58,13 +58,13 @@ class ViewController: UITableViewController {
         //delegate1.loadDirContent(repository: repoName, path: dirName)
         let repository = manager.loadDB(repository: repoName)[0]
         manager.loadJSON(repository: repository, pathToDir: dirUrl)
-        let tempFileArray = manager.loadDB(repository: repoName)[0].fileList
-        for file in tempFileArray {
-            if file.name == manager.getNameOfPath(path: dirUrl) {
-                fileDataArray = file.fileList
-                break
-            }
-        }
+//        let tempFileArray = manager.loadDB(repository: repoName)[0].fileList
+//        for file in tempFileArray {
+//            if file.name == manager.getNameOfPath(path: dirUrl) {
+                fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
+//                break
+//            }
+//        }
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
@@ -121,6 +121,7 @@ class ViewController: UITableViewController {
             }
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
+            print("It's here: \(dirUrl)")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
         }
     }

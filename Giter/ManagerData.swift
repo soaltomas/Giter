@@ -80,8 +80,30 @@ class ManagerData {
         return stringArray[stringArray.count - 1]
     }
     
+    //---Return array of path elements (starting with the first directory)
+    func getSeparatedPath(repoName: String, path: String) -> [String] {
+        var stringArray = path.components(separatedBy: "/")
+        var resultArray: [String] = []
+        for str in stringArray {
+            if str != repoName {
+                stringArray[stringArray.index(of: str)!] = ""
+            } else {
+                stringArray[stringArray.index(of: str)!] = ""
+                stringArray[stringArray.index(of: str)! + 1] = ""
+                break
+            }
+        }
+        for str in stringArray {
+            if str != "" {
+                resultArray.append(str)
+            }
+        }
+        return resultArray
+    }
+    
     
     func loadJSON(repository: RepoData, pathToDir: String) {
+        let file = try! Realm().objects(FileData.self).filter("url BEGINSWITH %@", "\(pathToDir)?")
         let realm = try! Realm()
             let selfContentURL = "\(pathToDir)?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
             Alamofire.request(selfContentURL, method: .get).validate().responseJSON() { response in
@@ -91,7 +113,7 @@ class ManagerData {
                     var i: Int = 0
                     while i < json.array!.count {
                         let fileData = FileData()
-                        //  fileData.id = FileData.incrementId()
+                       // fileData.file_id = FileData.incrementId()
                         fileData.name = json[i]["name"].stringValue
                         fileData.path = json[i]["path"].stringValue
                         fileData.sha = json[i]["sha"].stringValue
@@ -106,18 +128,28 @@ class ManagerData {
                             repository.fileList.append(fileData)
                         } else {
                             try! realm.write {
-                            for file in repository.fileList {
-                                if file.name == self.getNameOfPath(path: pathToDir) {
-                                    file.fileList.append(fileData)
+                           // for file in repository.fileList {
+                               // if file.name == self.getNameOfPath(path: pathToDir) {
+                                for tempFile in file[0].fileList{
+                                    if tempFile.url == fileData.url {
+                                        let index = file[0].fileList.index(of: tempFile)
+                                        file[0].fileList.remove(objectAtIndex: index!)
+                                    }
                                 }
-                            }
+                                file[0].fileList.append(fileData)
+                               // }
+                        //    }
                             }
                         }
                         i += 1
                     }
                     self.loadRepo = true as AnyObject
                     try! realm.write {
-                        realm.add(repository, update: true)
+                        if pathToDir == "\(repository.url)/contents" {
+                            realm.add(repository, update: true)
+                        } else {
+                            realm.add(file)
+                        }
                     }
                     
                 case .failure(let error):
@@ -159,6 +191,10 @@ class ManagerData {
     
     func loadDB(repository: String) -> Results<RepoData> {
         return try! Realm().objects(RepoData.self).filter("name BEGINSWITH %@", repository)
+    }
+    
+    func loadDirDB(pathToDir: String) -> Results<FileData> {
+        return try! Realm().objects(FileData.self).filter("url BEGINSWITH %@", "\(pathToDir)?")
     }
     
     func loadRepoListDB() -> [RepoData] {
