@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  SecondViewController.swift
 //  Giter
 //
-//  Created by Артем Полушин on 09.07.17.
+//  Created by Артем Полушин on 28.08.17.
 //  Copyright © 2017 Артем Полушин. All rights reserved.
 //
 
@@ -11,19 +11,13 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-protocol AddHeader {
-    func addHeader(name: String)
-}
-
-class ViewController: UITableViewController {
+class SecondViewController: UITableViewController {
     
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
     var fileDataArray = List<FileData>()
     var dirUrl: String = ""
-    
-    var delegate2: AddHeader?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL)
@@ -40,14 +34,14 @@ class ViewController: UITableViewController {
     func goToDir() {
         let repository = manager.loadDB(repository: repoName)[0]
         manager.loadJSON(repository: repository, pathToDir: dirUrl)
-                fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
+        fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
-            self.tableView.reloadData()
+        self.tableView.reloadData()
     }
-    
-    
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -75,12 +69,12 @@ class ViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
-        let secondTableView = storyboard?.instantiateViewController(withIdentifier: "secondTableView") as! SecondViewController
-        delegate2 = tvc
+        let firstTableView = storyboard?.instantiateViewController(withIdentifier: "firstTableView") as! ViewController
+       // delegate2 = tvc
         if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 do{
-                    delegate2?.addHeader(name: fileDataArray[indexPath.row].name)
+                   // delegate2?.addHeader(name: fileDataArray[indexPath.row].name)
                     let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
                     var result: String = ""
@@ -99,12 +93,13 @@ class ViewController: UITableViewController {
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
-            secondTableView.fileDataArray.append(contentsOf: fileDataArray)
-            navigationController?.pushViewController(secondTableView, animated: true)
+            firstTableView.fileDataArray.append(contentsOf: fileDataArray)
+            navigationController?.pushViewController(firstTableView, animated: true)
         }
     }
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "goToDir"), object: nil)
     }
-}
 
+
+}

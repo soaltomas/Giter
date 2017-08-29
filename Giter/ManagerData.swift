@@ -11,6 +11,24 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+extension String {
+    //: ### Base64 encoding a string
+    func base64Encoded() -> String? {
+        if let data = self.data(using: .utf8) {
+            return data.base64EncodedString()
+        }
+        return nil
+    }
+    //: ### Base64 decoding a string
+    func base64Decoded() -> String? {
+        if let data = Data(base64Encoded: self) {
+            return String(data: data, encoding: .utf8)
+        }
+        return nil
+    }
+}
+
+
 private let _singleManager = ManagerData()
 
 class ManagerData {
@@ -143,7 +161,7 @@ class ManagerData {
                         }
                         i += 1
                     }
-                    self.loadRepo = true as AnyObject
+                    loadRepo = true as AnyObject
                     try! realm.write {
                         if pathToDir == "\(repository.url)/contents" {
                             realm.add(repository, update: true)
@@ -206,16 +224,6 @@ class ManagerData {
         return resultList
     }
     
-    var loadRepo: AnyObject? {
-        get {
-            return UserDefaults.standard.object(forKey: "flag") as AnyObject?
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "flag")
-            UserDefaults.standard.synchronize()
-        }
-    }
-    
     
     
     
@@ -230,7 +238,7 @@ class ManagerData {
                     self.cityList.append(city)
                     
                 }
-                self.loadRepo = true as AnyObject
+                loadRepo = true as AnyObject
                 
             case .failure(let error):
                 print(error)
@@ -241,4 +249,26 @@ class ManagerData {
     }
     
     
+}
+
+var loadRepo: AnyObject? {
+    get {
+        return UserDefaults.standard.object(forKey: "flag") as AnyObject?
+    }
+    set {
+        UserDefaults.standard.set(newValue, forKey: "flag")
+        UserDefaults.standard.synchronize()
+    }
+}
+
+var timer: DispatchSourceTimer?
+
+
+var lastUpdate: Date? {
+    get {
+        return UserDefaults.standard.object(forKey: "Last Update") as? Date
+    }
+    set {
+        UserDefaults.standard.setValue(Date(), forKey: "Last Update")
+    }
 }

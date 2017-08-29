@@ -16,9 +16,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         FirebaseApp.configure()
         return true
+    }
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if lastUpdate != nil && abs(lastUpdate!.timeIntervalSinceNow) < 30 {
+            completionHandler(.noData)
+            return
+        }
+        func complite() {
+            
+        }
+        
+        
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
+        timer?.scheduleRepeating(deadline: .now(), interval: .seconds(29), leeway: .seconds(1))
+        timer?.setEventHandler {
+            completionHandler(.failed)
+            return
+        }
+        timer?.resume()
+        
+        for _ in ManagerData.singleManager.repoData {
+            ManagerData.singleManager.loadRepoJSON()
+        }
+        
+        lastUpdate = Date()
+        timer = nil
+        completionHandler(.newData)
+        return
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

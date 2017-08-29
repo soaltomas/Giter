@@ -88,7 +88,7 @@
         <!--View Controller-->
         <scene sceneID="QAA-E4-t0U">
             <objects>
-                <tableViewController id="dnQ-ee-jZT" customClass="ViewController" customModule="Giter" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="firstTableView" id="dnQ-ee-jZT" customClass="ViewController" customModule="Giter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Lvq-VP-Ddc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ds0-mF-Xb7" id="b7o-8P-Omd">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPg-LV-Wrx">
@@ -118,7 +118,42 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVy-i0-xxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2021.25" y="799.64788732394368"/>
+            <point key="canvasLocation" x="2136" y="800"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="KBC-VO-N4b">
+            <objects>
+                <tableViewController storyboardIdentifier="secondTableView" id="teE-tS-ru4" customClass="SecondViewController" customModule="Giter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fiU-rb-mp4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="xuE-kW-3sJ">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xuE-kW-3sJ" id="TDM-fP-BsI">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRa-PE-KtD">
+                                            <rect key="frame" x="8" y="10" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="41" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="teE-tS-ru4" id="DoN-Lj-gaT"/>
+                            <outlet property="delegate" destination="teE-tS-ru4" id="8x5-Dh-3Lt"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4LA-YB-bFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3172.5" y="1139.7887323943662"/>
         </scene>
         <!--Text View Controller-->
         <scene sceneID="Cya-Ls-aGU">
@@ -163,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oh6-kl-OtT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2737.5" y="799.64788732394368"/>
+            <point key="canvasLocation" x="3174" y="392"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="3ao-Pv-k9s">
