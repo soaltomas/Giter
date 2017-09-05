@@ -17,7 +17,7 @@ class SecondViewController: UITableViewController {
     var repoName: String = ""
     var fileDataArray = List<FileData>()
     var dirUrl: String = ""
-
+//---------------------------------Почему-то при переходе из репозитория Giter в какую-нибудь папку попадаем в другой репозиторий
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL)
@@ -34,6 +34,7 @@ class SecondViewController: UITableViewController {
     func goToDir() {
         let repository = manager.loadDB(repository: repoName)[0]
         manager.loadJSON(repository: repository, pathToDir: dirUrl)
+       // sleep(2)
         fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
@@ -68,8 +69,8 @@ class SecondViewController: UITableViewController {
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
-        let firstTableView = storyboard?.instantiateViewController(withIdentifier: "firstTableView") as! ViewController
+        let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController //---Просмотр текстового файла
+        let firstTableView = storyboard?.instantiateViewController(withIdentifier: "firstTableView") as! ViewController //---Переход в директорию
        // delegate2 = tvc
         if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -93,6 +94,7 @@ class SecondViewController: UITableViewController {
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+            firstTableView.fileDataArray.removeAll()
             firstTableView.fileDataArray.append(contentsOf: fileDataArray)
             navigationController?.pushViewController(firstTableView, animated: true)
         }

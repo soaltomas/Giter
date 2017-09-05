@@ -1,0 +1,6 @@
+framework module Pods_Giter_Giter_Widget {
+  umbrella header "Pods-Giter-Giter Widget-umbrella.h"
+
+  export *
+  module * { export * }
+}

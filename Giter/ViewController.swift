@@ -40,7 +40,8 @@ class ViewController: UITableViewController {
     func goToDir() {
         let repository = manager.loadDB(repository: repoName)[0]
         manager.loadJSON(repository: repository, pathToDir: dirUrl)
-                fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
+       // sleep(2)
+        fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
@@ -99,6 +100,7 @@ class ViewController: UITableViewController {
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+            secondTableView.fileDataArray.removeAll()
             secondTableView.fileDataArray.append(contentsOf: fileDataArray)
             navigationController?.pushViewController(secondTableView, animated: true)
         }

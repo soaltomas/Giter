@@ -23,5 +23,10 @@ pod 'Firebase/Auth'
     inherit! :search_paths
     # Pods for testing
   end
+  
+  target 'Giter Widget' do
+      pod 'Alamofire', '~> 4.5'
+      pod 'SwiftyJSON', '~> 3.1'
+  end
 
 end

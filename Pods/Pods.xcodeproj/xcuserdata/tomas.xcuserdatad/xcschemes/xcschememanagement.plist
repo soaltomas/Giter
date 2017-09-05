@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Giter-Giter Widget.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Giter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -88,6 +93,11 @@
 			<true/>
 		</dict>
 		<key>8FA4373494FDAFE5EEEE14ACB96F896D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A00694AAAED32D12928387A6CE78EB3A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
