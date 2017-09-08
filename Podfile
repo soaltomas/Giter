@@ -28,5 +28,10 @@ pod 'Firebase/Auth'
       pod 'Alamofire', '~> 4.5'
       pod 'SwiftyJSON', '~> 3.1'
   end
+  
+  target 'Giter iMessage' do
+      pod 'Alamofire', '~> 4.5'
+      pod 'SwiftyJSON', '~> 3.1'
+  end
 
 end

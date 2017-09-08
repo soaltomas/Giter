@@ -33,6 +33,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         //print(Realm.Configuration.defaultConfiguration.fileURL)
         print("It's here: \(self)")
         if counter == 0 {

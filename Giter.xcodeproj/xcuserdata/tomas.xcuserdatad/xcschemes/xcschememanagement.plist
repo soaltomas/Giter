@@ -7,7 +7,12 @@
 		<key>Giter Widget.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>1</integer>
+		</dict>
+		<key>Giter iMessage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 		<key>Giter.xcscheme</key>
 		<dict>
@@ -18,6 +23,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>C324ABC71F5E8C57000B1619</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C368F97D1F629C650082D05B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

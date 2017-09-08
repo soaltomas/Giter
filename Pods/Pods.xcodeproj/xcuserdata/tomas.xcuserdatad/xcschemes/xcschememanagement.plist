@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Giter-Giter iMessage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Giter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -113,6 +118,11 @@
 			<true/>
 		</dict>
 		<key>D808A95217B6DF66836B42E569CA0F89</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E89F2F0E3141F22F443B5EBE46B2DC40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
