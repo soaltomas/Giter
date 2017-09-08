@@ -15,37 +15,59 @@ protocol AddHeader {
     func addHeader(name: String)
 }
 
-class ViewController: UITableViewController {
+protocol FirstLoadNextDirectory {
+    func firstLoadNextDirectory(url: String)
+}
+
+class ViewController: UITableViewController, SecondLoadNextDirectory {
     
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
     var fileDataArray = List<FileData>()
     var dirUrl: String = ""
+    var counter: Int = 0
+    var currentDir: String = ""
     
+    var delegate1: FirstLoadNextDirectory?
     var delegate2: AddHeader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Realm.Configuration.defaultConfiguration.fileURL)
-        let repository = manager.loadDB(repository: repoName)
-        for value in repository[0].fileList {
-            fileDataArray.append(value)
+        //print(Realm.Configuration.defaultConfiguration.fileURL)
+        print("It's here: \(self)")
+        if counter == 0 {
+            let repository = manager.loadDB(repository: repoName)
+            for value in repository[0].fileList {
+                fileDataArray.append(value)
+            }
         }
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(goToDir), name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
     }
     
-    func goToDir() {
+    func secondLoadNextDirectory(url: String) {
+        currentDir = url
         let repository = manager.loadDB(repository: repoName)[0]
-        manager.loadJSON(repository: repository, pathToDir: dirUrl)
-       // sleep(2)
-        fileDataArray = manager.loadDirDB(pathToDir: dirUrl)[0].fileList
+        manager.loadJSON(repository: repository, pathToDir: url)
+        // sleep(2)
+        fileDataArray.removeAll()
+        fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
+        
+    }
+    
+    func updateTable() {
+        if counter > 0 {
+            fileDataArray = manager.loadDirDB(pathToDir: currentDir)[0].fileList
+            for value in fileDataArray {
+                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            }
             self.tableView.reloadData()
+        }
     }
     
     
@@ -77,6 +99,7 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
         let secondTableView = storyboard?.instantiateViewController(withIdentifier: "secondTableView") as! SecondViewController
+        delegate1 = secondTableView
         delegate2 = tvc
         if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -99,14 +122,16 @@ class ViewController: UITableViewController {
             }
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
-            secondTableView.fileDataArray.removeAll()
-            secondTableView.fileDataArray.append(contentsOf: fileDataArray)
+           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+           // secondTableView.fileDataArray.removeAll()
+           // secondTableView.fileDataArray.append(contentsOf: fileDataArray)
+            secondTableView.counter = self.counter + 1
+            delegate1?.firstLoadNextDirectory(url: dirUrl)
             navigationController?.pushViewController(secondTableView, animated: true)
         }
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "goToDir"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "updateTable"), object: nil)
     }
 }
 
