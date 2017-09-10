@@ -194,6 +194,7 @@ class ManagerData {
                         repoData.repoDescription = json[i]["description"].stringValue
                         repoData.language = json[i]["language"].stringValue
                         repoData.url = json[i]["url"].stringValue
+                        repoData.ownerLogin = json[i]["owner"]["login"].stringValue
                         tempRepoList.append(repoData)
                         i += 1
                     }
@@ -207,6 +208,43 @@ class ManagerData {
             }
         }
     }
+    
+    
+    
+    func searchRepoJSON(url: String = "https://api.github.com/users/soaltomas/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a") {
+        var tempRepoList: [RepoData] = []
+        
+        Alamofire.request(url, method: .get).validate().responseJSON() { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                var i: Int = 0
+                while i < json["items"].array!.count {
+                    let repoData = RepoData()
+                    repoData.id = json["items"][i]["id"].intValue
+                    repoData.name = json["items"][i]["name"].stringValue
+                    repoData.repoDescription = json["items"][i]["description"].stringValue
+                    repoData.language = json["items"][i]["language"].stringValue
+                    repoData.url = json["items"][i]["url"].stringValue
+                    repoData.ownerLogin = json["items"][i]["owner"]["login"].stringValue
+                    tempRepoList.append(repoData)
+                    i += 1
+                }
+                for repo in tempRepoList {
+                    self.loadJSON(repository: repo, pathToDir: "\(repo.url)/contents")
+                }
+                
+                
+            case .failure(let error):
+                print("Error thing: \(error)")
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSearchTable"), object: nil)
+        }
+
+    }
+    
+    
+    
     
     func loadDB(repository: String) -> Results<RepoData> {
         return try! Realm().objects(RepoData.self).filter("name BEGINSWITH %@", repository)

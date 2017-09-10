@@ -16,11 +16,11 @@ private let reuseIdentifier = "Cell"
 class SelfRepository: UICollectionViewController {
     
     let manager: ManagerData = ManagerData()
-    var repoArray = [RepoData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Realm.Configuration.defaultConfiguration.fileURL)
+        
         if loadRepo == nil {
             manager.loadRepoJSON()
         } else {

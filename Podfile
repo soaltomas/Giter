@@ -7,6 +7,7 @@ target 'Giter' do
 pod 'Alamofire', '~> 4.5'
 pod 'RealmSwift', '~> 2.8'
 pod 'SwiftyJSON', '~> 3.1'
+pod 'Highlightr', '~> 1.1'
 pod 'NVHTarGzip', '~> 1.0'
 pod 'Firebase/Core'
 pod 'Firebase/Database'

@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Highlightr.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>NVHTarGzip.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,17 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1CDD2B8BF3341F1D1CC6B0AA34FF4135</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2D358323EA85C94F3F96AEEA8A42AF77</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4FE5262629A578CE77B37E0926D5DE9E</key>
+		<key>3EBEC5228E32255895F9A44BD064B796</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5247A7506D58D7BC5CBB73A2D49AB696</key>
+		<key>47E74AFB5B3F213347189030FA3596C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +107,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8FA4373494FDAFE5EEEE14ACB96F896D</key>
+		<key>93DE03123D076F5BACCBC9F93FF5B488</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A00694AAAED32D12928387A6CE78EB3A</key>
+		<key>A2B863E093E305814FF85A725E93BBC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,17 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B466944B9F1D61A55663EE815DE340D9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D808A95217B6DF66836B42E569CA0F89</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E89F2F0E3141F22F443B5EBE46B2DC40</key>
+		<key>C9ABFCA2B8BFB8BD4BAA30C9B9712B74</key>
 		<dict>
 			<key>primary</key>
 			<true/>

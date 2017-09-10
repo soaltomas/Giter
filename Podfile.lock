@@ -34,6 +34,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.10)
+  - Highlightr (1.1.0)
   - NVHTarGzip (1.0.1)
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - Highlightr (~> 1.1)
   - NVHTarGzip (~> 1.0)
   - RealmSwift (~> 2.8)
   - SwiftyJSON (~> 3.1)
@@ -61,11 +63,12 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  Highlightr: 519911a0a9a040d76e591f6fe58bb5177c8bdaa3
   NVHTarGzip: 74cc227b902e5725900d37eb6d79b57e93005a73
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
   RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 922253a44032ca99822c4bf46539ec81b7d5dcf3
+PODFILE CHECKSUM: 3f557cf7f62395a2c964b8b3fbb5ba62aca8f2a2
 
 COCOAPODS: 1.2.1
