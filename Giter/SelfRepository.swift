@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import WatchConnectivity
 import Alamofire
 import SwiftyJSON
 import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
-class SelfRepository: UICollectionViewController {
+class SelfRepository: UICollectionViewController, WCSessionDelegate {
+    
+    private var session : WCSession!
     
     let manager: ManagerData = ManagerData()
 
@@ -26,8 +29,16 @@ class SelfRepository: UICollectionViewController {
         } else {
             ManagerData.singleManager.getRepoDataFromDB()
         }
-
-        // Do any additional setup after loading the view.
+        initWatchConnection()
+    }
+    
+    func initWatchConnection() {
+        
+        if (WCSession.isSupported()) {
+            session = WCSession.defaultSession()
+            session?.delegate = self
+            session?.activateSession()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,6 +91,38 @@ class SelfRepository: UICollectionViewController {
                 let selectedItem = ManagerData.singleManager.repoData[(indexPath?.row)!].name
                 destination.repoName = selectedItem
             }
+        }
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
+                 replyHandler: ([String : AnyObject]) -> Void) {
+        
+        if let body:String = message["body"] as? String {
+            if (body == "getRepoList") {
+                dispatch_async(dispatch_get_main_queue(),{
+                    var repoStringData: [String] = []
+                    for rd in ManagerData.singleManager.repoData {
+                        repoStringData.append(rd)
+                    }
+                    sendCommand(data: repoStringData)
+                })
+            }
+        }
+    }
+    
+    
+    func sendCommand(data: [RepoData]) {
+        if let session = session, session.isReachable {
+            
+            let applicationData = [ "body" : cmd ]
+            session.sendMessage(applicationData,
+                                replyHandler: { replyData in
+                                    print("Send: done")
+            }, errorHandler: { error in
+                print("Send: fail")
+            })
+        } else {
+            print("No connection")
         }
     }
 

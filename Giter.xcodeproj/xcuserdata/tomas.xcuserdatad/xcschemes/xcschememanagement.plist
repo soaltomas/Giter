@@ -12,17 +12,32 @@
 		<key>Giter iMessage.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>2</integer>
 		</dict>
 		<key>Giter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>GiterWatch (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
+		</dict>
+		<key>GiterWatch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>C324ABC71F5E8C57000B1619</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C348BE1B1F67E2B1004EAC2B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
