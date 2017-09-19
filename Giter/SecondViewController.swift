@@ -12,7 +12,7 @@ import SwiftyJSON
 import RealmSwift
 
 protocol SecondLoadNextDirectory {
-    func secondLoadNextDirectory(url: String)
+    func secondLoadNextDirectory(url: String, branch: String)
 }
 
 class SecondViewController: UITableViewController, FirstLoadNextDirectory {
@@ -23,12 +23,11 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
     var dirUrl: String = ""
     var counter: Int = 0
     var currentDir: String = ""
+    var currentBranch: String = "master"
     
     var delegate1: SecondLoadNextDirectory?
-//---------------------------------Почему-то при переходе из репозитория Giter в какую-нибудь папку попадаем в другой репозиторий
     override func viewDidLoad() {
         super.viewDidLoad()
-       // print(Realm.Configuration.defaultConfiguration.fileURL)
         print("It's here: \(self)")
         if counter == 0 {
             let repository = manager.loadDB(repository: repoName)
@@ -37,20 +36,19 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
             }
         }
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
     }
     
-    func firstLoadNextDirectory(url: String) {
+    func firstLoadNextDirectory(url: String, branch: String) {
         currentDir = url
         let repository = manager.loadDB(repository: repoName)[0]
-        manager.loadJSON(repository: repository, pathToDir: url)
-        // sleep(2)
+        manager.loadJSON(repository: repository, user: "soaltomas", pathToDir: url)
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
 
     }
@@ -59,7 +57,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
         if counter > 0 {
             fileDataArray = manager.loadDirDB(pathToDir: currentDir)[0].fileList
             for value in fileDataArray {
-                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
             }
             self.tableView.reloadData()
         }
@@ -68,7 +66,6 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,11 +114,9 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
             }
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
-           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
-           // firstTableView.fileDataArray.removeAll()
-           // firstTableView.fileDataArray.append(contentsOf: fileDataArray)
             firstTableView.counter = self.counter + 1
-            delegate1?.secondLoadNextDirectory(url: dirUrl)
+            firstTableView.currentBranch = self.currentBranch
+            delegate1?.secondLoadNextDirectory(url: dirUrl, branch: self.currentBranch)
             navigationController?.pushViewController(firstTableView, animated: true)
         }
     }

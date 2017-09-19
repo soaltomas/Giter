@@ -16,7 +16,9 @@ class RepoData: Object {
     dynamic var language: String = ""
     dynamic var url: String = ""
     dynamic var ownerLogin: String = ""
+    dynamic var createdDate: String = ""
     var fileList = List<FileData>()
+    var branchList = List<BranchData>()
     
     override static func primaryKey() -> String? {
         return "id"

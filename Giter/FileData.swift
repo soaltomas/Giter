@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 
 class FileData: Object {
-    //dynamic var file_id: Int = 0
     dynamic var name: String = ""
     dynamic var path: String = ""
     dynamic var sha: String = ""
@@ -22,17 +21,4 @@ class FileData: Object {
     dynamic var type: String = ""
     dynamic var content: String = ""
     var fileList = List<FileData>()
-
-//    override static func primaryKey() -> String? {
-//        return "file_id"
-//    }
-//
-//    static func incrementId() -> Int {
-//        let realm = try! Realm()
-//        if let retNext = realm.objects(FileData.self).sorted(byKeyPath: "file_id").last?.file_id {
-//            return retNext + 1
-//        }else{
-//            return 1
-//        }
-//    }
 }

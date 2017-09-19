@@ -120,10 +120,10 @@ class ManagerData {
     }
     
     
-    func loadJSON(repository: RepoData, pathToDir: String) {
+    func loadJSON(repository: RepoData, user: String, pathToDir: String, branch: String = "master") {
         let file = try! Realm().objects(FileData.self).filter("url BEGINSWITH %@", "\(pathToDir)?")
         let realm = try! Realm()
-            let selfContentURL = "\(pathToDir)?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+            let selfContentURL = "\(pathToDir)?ref=\(branch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
             Alamofire.request(selfContentURL, method: .get).validate().responseJSON() { response in
                 switch response.result {
                 case .success(let value):
@@ -131,7 +131,6 @@ class ManagerData {
                     var i: Int = 0
                     while i < json.array!.count {
                         let fileData = FileData()
-                       // fileData.file_id = FileData.incrementId()
                         fileData.name = json[i]["name"].stringValue
                         fileData.path = json[i]["path"].stringValue
                         fileData.sha = json[i]["sha"].stringValue
@@ -146,8 +145,6 @@ class ManagerData {
                             repository.fileList.append(fileData)
                         } else {
                             try! realm.write {
-                           // for file in repository.fileList {
-                               // if file.name == self.getNameOfPath(path: pathToDir) {
                                 for tempFile in file[0].fileList{
                                     if tempFile.url == fileData.url {
                                         let index = file[0].fileList.index(of: tempFile)
@@ -155,8 +152,6 @@ class ManagerData {
                                     }
                                 }
                                 file[0].fileList.append(fileData)
-                               // }
-                        //    }
                             }
                         }
                         i += 1
@@ -170,10 +165,13 @@ class ManagerData {
                         }
                     }
                     
+                  //  self.loadBranchList(repository: repository.name, user: user)
+                    
                 case .failure(let error):
                     print("Error thing: \(error)")
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+               // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadBranchList"), object: nil)
             }
             
         }
@@ -182,6 +180,7 @@ class ManagerData {
     func loadRepoJSON() {
         var tempRepoList: [RepoData] = []
         let repoListURL = "https://api.github.com/users/soaltomas/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+        
         Alamofire.request(repoListURL, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
@@ -199,8 +198,10 @@ class ManagerData {
                         i += 1
                     }
                 for repo in tempRepoList {
-                    self.loadJSON(repository: repo, pathToDir: "\(repo.url)/contents")
+                    self.loadJSON(repository: repo, user: "soaltomas", pathToDir: "\(repo.url)/contents")
+                  //  self.loadBranchList(repository: repo, user: "soaltomas")
                 }
+                
                 
                 
             case .failure(let error):
@@ -231,7 +232,7 @@ class ManagerData {
                     i += 1
                 }
                 for repo in tempRepoList {
-                    self.loadJSON(repository: repo, pathToDir: "\(repo.url)/contents")
+                    self.loadJSON(repository: repo, user: "soaltomas", pathToDir: "\(repo.url)/contents")
                 }
                 
                 
@@ -243,7 +244,38 @@ class ManagerData {
 
     }
     
-    
+    func loadBranchList(repository: String, user: String) {
+        let repo = self.loadDB(repository: repository)
+        let url: String = "https://api.github.com/repos/\(user)/\(repository)/branches?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+        
+        let realm = try! Realm()
+        Alamofire.request(url, method: .get).validate().responseJSON() { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                var i: Int = 0
+                while i < json.array!.count {
+                    let branchData = BranchData()
+                    branchData.name = json[i]["name"].stringValue
+                    print("It's here: \(json[i]["name"])")
+                    branchData.sha = json[i]["commit"]["sha"].stringValue
+                    branchData.url = json[i]["commit"]["url"].stringValue
+                    repo[0].branchList.append(branchData)
+                    i += 1
+                }
+                loadRepo = true as AnyObject
+                try! realm.write {
+                    realm.add(repo, update: true)
+                }
+                
+            case .failure(let error):
+                print("Error thing: \(error)")
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateBranches"), object: nil)
+        }
+
+        
+    }
     
     
     func loadDB(repository: String) -> Results<RepoData> {

@@ -16,56 +16,74 @@ protocol AddHeader {
 }
 
 protocol FirstLoadNextDirectory {
-    func firstLoadNextDirectory(url: String)
+    func firstLoadNextDirectory(url: String, branch: String)
 }
 
-class ViewController: UITableViewController, SecondLoadNextDirectory {
+class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherBranch {
     
+    @IBOutlet weak var branchesButton: UIButton!
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
     var fileDataArray = List<FileData>()
     var dirUrl: String = ""
     var counter: Int = 0
     var currentDir: String = ""
+    var currentBranch: String = "master"
+    var branchList = List<BranchData>()
     
     var delegate1: FirstLoadNextDirectory?
     var delegate2: AddHeader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //print(Realm.Configuration.defaultConfiguration.fileURL)
+        if counter != 0 {
+            branchesButton.isHidden = true
+        } else {
+            branchesButton.isHidden = false
+        }
         print("It's here: \(self)")
         if counter == 0 {
             let repository = manager.loadDB(repository: repoName)
             for value in repository[0].fileList {
                 fileDataArray.append(value)
             }
+            for value in repository[0].branchList {
+                branchList.append(value)
+            }
         }
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(loadBranchList), name: NSNotification.Name(rawValue: "loadBranchList"), object: nil)
     }
     
-    func secondLoadNextDirectory(url: String) {
+    func secondLoadNextDirectory(url: String, branch: String) {
         currentDir = url
         let repository = manager.loadDB(repository: repoName)[0]
-        manager.loadJSON(repository: repository, pathToDir: url)
-        // sleep(2)
+        manager.loadJSON(repository: repository, user: "soaltomas", pathToDir: url, branch: branch)
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
         
+    }
+    
+    func loadOtherBranch(url: String, branch: String) {
+        self.currentBranch = branch
+        secondLoadNextDirectory(url: url, branch: branch)
+    }
+    
+    func loadBranchList() {
+        manager.loadBranchList(repository: "topjava", user: "soaltomas")
     }
     
     func updateTable() {
         if counter > 0 {
             fileDataArray = manager.loadDirDB(pathToDir: currentDir)[0].fileList
             for value in fileDataArray {
-                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
             }
             self.tableView.reloadData()
         }
@@ -123,14 +141,21 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
             }
         } else {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
-           // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToDir"), object: nil)
-           // secondTableView.fileDataArray.removeAll()
-           // secondTableView.fileDataArray.append(contentsOf: fileDataArray)
             secondTableView.counter = self.counter + 1
-            delegate1?.firstLoadNextDirectory(url: dirUrl)
+            secondTableView.currentBranch = self.currentBranch
+            delegate1?.firstLoadNextDirectory(url: dirUrl, branch: self.currentBranch)
             navigationController?.pushViewController(secondTableView, animated: true)
         }
     }
+    //---Go to choose branch---
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "branches" {
+            if let destination = segue.destination as? ChooseBranchController {
+                destination.currentRepo = self.repoName
+            }
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "updateTable"), object: nil)
     }

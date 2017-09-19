@@ -121,6 +121,20 @@
                             <outlet property="delegate" destination="dnQ-ee-jZT" id="MM7-0b-m2W"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="e8u-kQ-VVm">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0XT-JL-afe">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Branches"/>
+                            <connections>
+                                <segue destination="U6H-DN-83V" kind="show" identifier="branches" id="JTs-ub-San"/>
+                            </connections>
+                        </button>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="branchesButton" destination="0XT-JL-afe" id="4kI-V5-Zab"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVy-i0-xxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -160,6 +174,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4LA-YB-bFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3986" y="1125"/>
+        </scene>
+        <!--Choose Branch Controller-->
+        <scene sceneID="to5-1O-maL">
+            <objects>
+                <viewController id="U6H-DN-83V" customClass="ChooseBranchController" customModule="Giter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bSu-kJ-WVA"/>
+                        <viewControllerLayoutGuide type="bottom" id="WwR-SA-xqn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TAJ-u9-YlZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rzz-f8-gix">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="branchPicker" destination="Rzz-f8-gix" id="Yvj-5N-hsc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-Dl-8cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3358.125" y="1806.338028169014"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="xVQ-h9-6eg">
@@ -448,6 +489,6 @@
         <image name="github-wallpapers" width="590" height="369"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hNq-Sp-LRE"/>
+        <segue reference="5VE-Lg-KbT"/>
     </inferredMetricsTieBreakers>
 </document>

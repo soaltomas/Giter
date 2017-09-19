@@ -14,9 +14,7 @@ import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
-class SelfRepository: UICollectionViewController, WCSessionDelegate {
-    
-    private var session : WCSession!
+class SelfRepository: UICollectionViewController {
     
     let manager: ManagerData = ManagerData()
 
@@ -28,18 +26,10 @@ class SelfRepository: UICollectionViewController, WCSessionDelegate {
             manager.loadRepoJSON()
         } else {
             ManagerData.singleManager.getRepoDataFromDB()
-        }
-        initWatchConnection()
+
+    }
     }
     
-    func initWatchConnection() {
-        
-        if (WCSession.isSupported()) {
-            session = WCSession.defaultSession()
-            session?.delegate = self
-            session?.activateSession()
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -89,42 +79,15 @@ class SelfRepository: UICollectionViewController, WCSessionDelegate {
                 let cell = sender as! UICollectionViewCell
                 let indexPath = self.collectionView?.indexPath(for: cell)
                 let selectedItem = ManagerData.singleManager.repoData[(indexPath?.row)!].name
+               // manager.loadBranchList(repository: selectedItem, user: "soaltomas")
                 destination.repoName = selectedItem
             }
         }
     }
     
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
-                 replyHandler: ([String : AnyObject]) -> Void) {
-        
-        if let body:String = message["body"] as? String {
-            if (body == "getRepoList") {
-                dispatch_async(dispatch_get_main_queue(),{
-                    var repoStringData: [String] = []
-                    for rd in ManagerData.singleManager.repoData {
-                        repoStringData.append(rd)
-                    }
-                    sendCommand(data: repoStringData)
-                })
-            }
-        }
-    }
+
     
     
-    func sendCommand(data: [RepoData]) {
-        if let session = session, session.isReachable {
-            
-            let applicationData = [ "body" : cmd ]
-            session.sendMessage(applicationData,
-                                replyHandler: { replyData in
-                                    print("Send: done")
-            }, errorHandler: { error in
-                print("Send: fail")
-            })
-        } else {
-            print("No connection")
-        }
-    }
 
     // MARK: UICollectionViewDelegate
 

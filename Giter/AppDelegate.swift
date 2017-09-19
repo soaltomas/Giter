@@ -8,16 +8,41 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var oldRepoList: [RepoData] = []
+    var newRepoList: [RepoData] = []
+    var repoForNotification: [String] = []
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            
+        }
+        
         return true
+    }
+    
+    func sendNotification(isSecond seconds: TimeInterval) {
+        let content = UNMutableNotificationContent()
+        content.title = "Giter"
+        content.body = "Ваши репозитории изменились"
+        content.sound = UNNotificationSound.default()
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.month, .day, .hour, .minute, .second], from: Date(timeIntervalSinceNow: seconds))
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let request = UNNotificationRequest(identifier: "identifier", content: content, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request, withCompletionHandler: nil)
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -38,14 +63,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         timer?.resume()
         
-        for _ in ManagerData.singleManager.repoData {
-            ManagerData.singleManager.loadRepoJSON()
+        for repo in ManagerData.singleManager.repoData {
+            oldRepoList.append(repo)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+        
+        ManagerData.singleManager.loadRepoJSON()
+        
+    
+       /* for _ in ManagerData.singleManager.repoData {
+            ManagerData.singleManager.loadRepoJSON()
+        }*/
         
         lastUpdate = Date()
         timer = nil
         completionHandler(.newData)
         return
+    }
+    
+    func updateTable() {
+        ManagerData.singleManager.getRepoDataFromDB()
+        
+        for repo in ManagerData.singleManager.repoData {
+            newRepoList.append(repo)
+        }
+        
+        if oldRepoList.count != newRepoList.count {
+            sendNotification(isSecond: 5)
+        } else {
+            for oldRep in oldRepoList {
+                for newRep in newRepoList {
+                    if oldRep.name == newRep.name && oldRep.createdDate != newRep.createdDate {
+                        repoForNotification.append(newRep.name)
+                        sendNotification(isSecond: 5)
+                    }
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
