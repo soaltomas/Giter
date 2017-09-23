@@ -17,6 +17,7 @@ class RepoData: Object {
     dynamic var url: String = ""
     dynamic var ownerLogin: String = ""
     dynamic var createdDate: String = ""
+    dynamic var currentBranch: String = "master"
     var fileList = List<FileData>()
     var branchList = List<BranchData>()
     

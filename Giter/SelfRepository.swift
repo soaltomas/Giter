@@ -20,6 +20,13 @@ class SelfRepository: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        do {
+            let fileManager = FileManager.default
+            try fileManager.createDirectory(atPath: NSHomeDirectory() + "/Documents/files", withIntermediateDirectories: false, attributes: nil)
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
         print(Realm.Configuration.defaultConfiguration.fileURL)
         
         if loadRepo == nil {
@@ -81,6 +88,7 @@ class SelfRepository: UICollectionViewController {
                 let selectedItem = ManagerData.singleManager.repoData[(indexPath?.row)!].name
                // manager.loadBranchList(repository: selectedItem, user: "soaltomas")
                 destination.repoName = selectedItem
+                destination.currentBranch = ManagerData.singleManager.repoData[(indexPath?.row)!].currentBranch
             }
         }
     }

@@ -36,12 +36,39 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableForNewBranch), name: NSNotification.Name(rawValue: "updateTableForNewBranch"), object: nil)
+        
+        let oldBranch = manager.loadDB(repository: repoName)[0].currentBranch
+        if oldBranch != currentBranch {
+            manager.setCurrentBranch(repo: repoName, currentBranch: currentBranch)
+            if counter == 0 {
+                let repository = manager.loadDB(repository: repoName)
+                for value in repository[0].fileList {
+                    fileDataArray.append(value)
+                }
+                for value in repository[0].branchList {
+                    branchList.append(value)
+                }
+            }
+            let fileManager = FileManager.default
+            do {
+                    try fileManager.removeItem(atPath: NSHomeDirectory() + "/Documents/files")
+                    try fileManager.createDirectory(atPath: NSHomeDirectory() + "/Documents/files", withIntermediateDirectories: false, attributes: nil)
+            }
+            catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
+            manager.clearFileListDB(repository: repoName)
+            fileDataArray.removeAll()
+            manager.loadRepoJSON(selectedRepo: repoName, branch: currentBranch)
+        }
+        
         if counter != 0 {
             branchesButton.isHidden = true
         } else {
             branchesButton.isHidden = false
         }
-        print("It's here: \(self)")
         if counter == 0 {
             let repository = manager.loadDB(repository: repoName)
             for value in repository[0].fileList {
@@ -54,14 +81,13 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(loadBranchList), name: NSNotification.Name(rawValue: "loadBranchList"), object: nil)
+
     }
     
     func secondLoadNextDirectory(url: String, branch: String) {
         currentDir = url
         let repository = manager.loadDB(repository: repoName)[0]
-        manager.loadJSON(repository: repository, user: "soaltomas", pathToDir: url, branch: branch)
+        manager.loadJSON(repository: repository, user: "soaltomas", pathToDir: url)
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {
@@ -70,13 +96,11 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
         
     }
     
-    func loadOtherBranch(url: String, branch: String) {
+    func loadOtherBranch(repo: String, branch: String) {
         self.currentBranch = branch
-        secondLoadNextDirectory(url: url, branch: branch)
-    }
-    
-    func loadBranchList() {
-        manager.loadBranchList(repository: "topjava", user: "soaltomas")
+        self.repoName = repo
+        manager.clearFileListDB(repository: repoName)
+        secondLoadNextDirectory(url: "https://api.github.com/repos/soaltomas/\(repo)/contents", branch: branch)
     }
     
     func updateTable() {
@@ -86,6 +110,17 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
                 manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
             }
             self.tableView.reloadData()
+        }
+    }
+    
+    func updateTableForNewBranch() {
+        let repository = manager.loadDB(repository: repoName)
+        for value in repository[0].fileList {
+            fileDataArray.append(value)
+        }
+        
+        for value in fileDataArray {
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
     }
     
@@ -124,7 +159,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
             if let indexPath = tableView.indexPathForSelectedRow {
                 do{
                     delegate2?.addHeader(name: fileDataArray[indexPath.row].name)
-                    let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
+                    let path = NSHomeDirectory() + "/Documents/files/\(fileDataArray[indexPath.row].name)"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
                     var result: String = ""
                     for symbol in text.characters {
@@ -143,6 +178,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
             secondTableView.counter = self.counter + 1
             secondTableView.currentBranch = self.currentBranch
+            secondTableView.repoName = self.repoName
             delegate1?.firstLoadNextDirectory(url: dirUrl, branch: self.currentBranch)
             navigationController?.pushViewController(secondTableView, animated: true)
         }

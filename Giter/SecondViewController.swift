@@ -28,7 +28,30 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
     var delegate1: SecondLoadNextDirectory?
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("It's here: \(self)")
+        
+        let oldBranch = manager.loadDB(repository: repoName)[0].currentBranch
+        if oldBranch != currentBranch {
+            manager.setCurrentBranch(repo: repoName, currentBranch: currentBranch)
+            if counter == 0 {
+                let repository = manager.loadDB(repository: repoName)
+                for value in repository[0].fileList {
+                    fileDataArray.append(value)
+                }
+            }
+            let fileManager = FileManager.default
+            do {
+                try fileManager.removeItem(atPath: NSHomeDirectory() + "/Documents/files")
+                try fileManager.createDirectory(atPath: NSHomeDirectory() + "/Documents/files", withIntermediateDirectories: false, attributes: nil)
+            }
+            catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
+            manager.clearFileListDB(repository: repoName)
+            fileDataArray.removeAll()
+            manager.loadRepoJSON(selectedRepo: repoName, branch: currentBranch)
+        }
+
+        
         if counter == 0 {
             let repository = manager.loadDB(repository: repoName)
             for value in repository[0].fileList {
@@ -97,7 +120,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
             if let indexPath = tableView.indexPathForSelectedRow {
                 do{
                    // delegate2?.addHeader(name: fileDataArray[indexPath.row].name)
-                    let path = NSHomeDirectory() + "/Documents/\(fileDataArray[indexPath.row].name)"
+                    let path = NSHomeDirectory() + "/Documents/files/\(fileDataArray[indexPath.row].name)"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
                     var result: String = ""
                     for symbol in text.characters {
@@ -116,6 +139,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
             dirUrl = fileDataArray[indexPath.row].url.components(separatedBy: "?")[0]
             firstTableView.counter = self.counter + 1
             firstTableView.currentBranch = self.currentBranch
+            firstTableView.repoName = self.repoName
             delegate1?.secondLoadNextDirectory(url: dirUrl, branch: self.currentBranch)
             navigationController?.pushViewController(firstTableView, animated: true)
         }

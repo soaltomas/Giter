@@ -10,16 +10,19 @@ import UIKit
 import RealmSwift
 
 protocol LoadOtherBranch {
-    func loadOtherBranch(url: String, branch: String)
+    func loadOtherBranch(repo: String, branch: String)
 }
 
 class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let manager: ManagerData = ManagerData()
     var currentRepo: String = ""
+    var selectedBranch: String = ""
     
+    @IBAction func selectBranchButton(_ sender: Any) {
+        
+    }
     @IBOutlet weak var branchPicker: UIPickerView!
-    let tempPickerArray = ["1111", "2222", "33333", "444444", "555555", "6666666", "77777777", "888888", "999999"]
     
     var branchList = List<BranchData>()
     
@@ -28,6 +31,7 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateBranches), name: NSNotification.Name(rawValue: "updateBranches"), object: nil)
+        manager.loadBranchList(repository: currentRepo, user: "soaltomas")
         branchPicker.delegate = self
         branchPicker.dataSource = self
     }
@@ -35,6 +39,7 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     func updateBranches() {
         let repository = manager.loadDB(repository: currentRepo)
         self.branchList.append(contentsOf: repository[0].branchList)
+        self.branchPicker.reloadAllComponents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +61,17 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        selectedBranch = branchList[row].name
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToRepo" {
+            if let destination = segue.destination as? ViewController {
+                destination.repoName = currentRepo
+                destination.currentBranch = selectedBranch
+                destination.currentDir = "https://api.github.com/repos/soaltomas/\(currentRepo)/contents"
+            }
+        }
     }
 
 }

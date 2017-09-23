@@ -47,7 +47,7 @@
                                                 <constraint firstAttribute="width" constant="109" id="F3a-bx-Jqg"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="0.95761819948186533" green="0.73800573737219943" blue="0.15084601460491059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7xM-J0-mnh">
@@ -175,7 +175,7 @@
             </objects>
             <point key="canvasLocation" x="3986" y="1125"/>
         </scene>
-        <!--Choose Branch Controller-->
+        <!--Select a branch-->
         <scene sceneID="to5-1O-maL">
             <objects>
                 <viewController id="U6H-DN-83V" customClass="ChooseBranchController" customModule="Giter" customModuleProvider="target" sceneMemberID="viewController">
@@ -194,13 +194,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Select a branch" id="sOe-zA-FXV">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="XdH-M4-orh">
+                            <connections>
+                                <action selector="selectBranchButton:" destination="U6H-DN-83V" id="TM8-uy-v6d"/>
+                                <segue destination="dnQ-ee-jZT" kind="show" identifier="backToRepo" id="sdc-qQ-FdL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="branchPicker" destination="Rzz-f8-gix" id="Yvj-5N-hsc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-Dl-8cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3358.125" y="1806.338028169014"/>
+            <point key="canvasLocation" x="3019" y="1802"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="xVQ-h9-6eg">
