@@ -19,7 +19,7 @@ protocol FirstLoadNextDirectory {
     func firstLoadNextDirectory(url: String, branch: String)
 }
 
-class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherBranch {
+class ViewController: UITableViewController, SecondLoadNextDirectory {
     
     @IBOutlet weak var branchesButton: UIButton!
     let manager: ManagerData = ManagerData()
@@ -36,33 +36,9 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableForNewBranch), name: NSNotification.Name(rawValue: "updateTableForNewBranch"), object: nil)
         
-        let oldBranch = manager.loadDB(repository: repoName)[0].currentBranch
-        if oldBranch != currentBranch {
-            manager.setCurrentBranch(repo: repoName, currentBranch: currentBranch)
-            if counter == 0 {
-                let repository = manager.loadDB(repository: repoName)
-                for value in repository[0].fileList {
-                    fileDataArray.append(value)
-                }
-                for value in repository[0].branchList {
-                    branchList.append(value)
-                }
-            }
-            let fileManager = FileManager.default
-            do {
-                    try fileManager.removeItem(atPath: NSHomeDirectory() + "/Documents/files")
-                    try fileManager.createDirectory(atPath: NSHomeDirectory() + "/Documents/files", withIntermediateDirectories: false, attributes: nil)
-            }
-            catch let error as NSError {
-                print("Ooops! Something went wrong: \(error)")
-            }
-            manager.clearFileListDB(repository: repoName)
-            fileDataArray.removeAll()
-            manager.loadRepoJSON(selectedRepo: repoName, branch: currentBranch)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+        
         
         if counter != 0 {
             branchesButton.isHidden = true
@@ -96,13 +72,6 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
         
     }
     
-    func loadOtherBranch(repo: String, branch: String) {
-        self.currentBranch = branch
-        self.repoName = repo
-        manager.clearFileListDB(repository: repoName)
-        secondLoadNextDirectory(url: "https://api.github.com/repos/soaltomas/\(repo)/contents", branch: branch)
-    }
-    
     func updateTable() {
         if counter > 0 {
             fileDataArray = manager.loadDirDB(pathToDir: currentDir)[0].fileList
@@ -110,17 +79,6 @@ class ViewController: UITableViewController, SecondLoadNextDirectory, LoadOtherB
                 manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
             }
             self.tableView.reloadData()
-        }
-    }
-    
-    func updateTableForNewBranch() {
-        let repository = manager.loadDB(repository: repoName)
-        for value in repository[0].fileList {
-            fileDataArray.append(value)
-        }
-        
-        for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
         }
     }
     

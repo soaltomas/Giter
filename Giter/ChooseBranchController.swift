@@ -9,10 +9,6 @@
 import UIKit
 import RealmSwift
 
-protocol LoadOtherBranch {
-    func loadOtherBranch(repo: String, branch: String)
-}
-
 class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let manager: ManagerData = ManagerData()
@@ -25,8 +21,6 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var branchPicker: UIPickerView!
     
     var branchList = List<BranchData>()
-    
-    var delegate: LoadOtherBranch?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +56,20 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedBranch = branchList[row].name
+        let oldBranch = manager.loadDB(repository: currentRepo)[0].currentBranch
+        if oldBranch != selectedBranch {
+            manager.setCurrentBranch(repo: currentRepo, currentBranch: selectedBranch)
+            let fileManager = FileManager.default
+            do {
+                try fileManager.removeItem(atPath: NSHomeDirectory() + "/Documents/files")
+                try fileManager.createDirectory(atPath: NSHomeDirectory() + "/Documents/files", withIntermediateDirectories: false, attributes: nil)
+            }
+            catch let error as NSError {
+                print("File error: \(error)")
+            }
+            manager.clearFileListDB(repository: currentRepo)
+            manager.loadRepoJSON(selectedRepo: currentRepo, branch: selectedBranch)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

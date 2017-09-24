@@ -172,7 +172,6 @@ class ManagerData {
                     print("Error thing: \(error)")
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateTable"), object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateTableForNewBranch"), object: nil)
             }
             
         }

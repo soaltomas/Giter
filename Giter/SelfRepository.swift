@@ -71,8 +71,8 @@ class SelfRepository: UICollectionViewController {
 
         let labelName: UILabel = cell.viewWithTag(1) as! UILabel
         labelName.text = ManagerData.singleManager.repoData[indexPath.row].name
-        let image: UIImageView = cell.viewWithTag(2) as! UIImageView
-        image.image = UIImage(named: "github-integration")
+        let viewDescription: UITextView = cell.viewWithTag(2) as! UITextView
+        viewDescription.text = ManagerData.singleManager.repoData[indexPath.row].repoDescription
         let labelLanguage: UILabel = cell.viewWithTag(3) as! UILabel
         labelLanguage.text = ManagerData.singleManager.repoData[indexPath.row].language
 
