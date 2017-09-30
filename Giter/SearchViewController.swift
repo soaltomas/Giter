@@ -58,7 +58,7 @@ class SearchViewController: UITableViewController, UITextFieldDelegate {
         if textField.text != nil {
             repoKeyWord = textField.text!
         }
-        manager.searchRepoJSON(url: "https://api.github.com/search/repositories?q=\(repoKeyWord)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a")
+        manager.searchRepoJSON(url: "https://api.github.com/search/repositories?q=\(repoKeyWord)")
         return false
     }
     

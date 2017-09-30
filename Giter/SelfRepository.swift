@@ -20,6 +20,7 @@ class SelfRepository: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
         do {
             let fileManager = FileManager.default
             try fileManager.createDirectory(atPath: NSHomeDirectory() + "/Documents/files", withIntermediateDirectories: false, attributes: nil)
@@ -42,7 +43,7 @@ class SelfRepository: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     /*
     // MARK: - Navigation
 
@@ -75,7 +76,10 @@ class SelfRepository: UICollectionViewController {
         viewDescription.text = ManagerData.singleManager.repoData[indexPath.row].repoDescription
         let labelLanguage: UILabel = cell.viewWithTag(3) as! UILabel
         labelLanguage.text = ManagerData.singleManager.repoData[indexPath.row].language
-
+        if ManagerData.singleManager.repoData[indexPath.row].fork {
+            let forkImage: UIImageView = cell.viewWithTag(4) as! UIImageView
+            forkImage.image = UIImage(named: "if_code-fork_1608638")
+        }
     
         return cell
     }

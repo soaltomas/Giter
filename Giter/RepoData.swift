@@ -16,8 +16,9 @@ class RepoData: Object {
     dynamic var language: String = ""
     dynamic var url: String = ""
     dynamic var ownerLogin: String = ""
-    dynamic var createdDate: String = ""
+    dynamic var updatedDate: String = ""
     dynamic var currentBranch: String = "master"
+    dynamic var fork: Bool = false
     var fileList = List<FileData>()
     var branchList = List<BranchData>()
     

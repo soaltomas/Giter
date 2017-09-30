@@ -14,7 +14,7 @@ import RealmSwift
 extension String {
     //: ### Base64 encoding a string
     func base64Encoded() -> String? {
-        if let data = self.data(using: .utf8) {
+        if let data = self.data(using: String.Encoding.utf8) {
             return data.base64EncodedString()
         }
         return nil
@@ -32,6 +32,8 @@ extension String {
 private let _singleManager = ManagerData()
 
 class ManagerData {
+    
+    let managerNotification: ManagerNotification = ManagerNotification()
     
     struct City {
         let name: String
@@ -67,7 +69,7 @@ class ManagerData {
     let serialQueue = DispatchQueue(label: "serial_queue")
     
     func getFileContent(url: String, filename: String) {
-        Alamofire.request(url, method: .get).validate().responseJSON() { response in
+        Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -124,8 +126,8 @@ class ManagerData {
         let file = try! Realm().objects(FileData.self).filter("url BEGINSWITH %@", "\(pathToDir)?")
         let branch = repository.currentBranch
         let realm = try! Realm()
-            let selfContentURL = "\(pathToDir)?ref=\(branch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
-            Alamofire.request(selfContentURL, method: .get).validate().responseJSON() { response in
+            let selfContentURL = "\(pathToDir)?ref=\(branch)"
+            Alamofire.request(selfContentURL, method: .get, headers: credentials).validate().responseJSON() { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
@@ -179,9 +181,9 @@ class ManagerData {
     
     func loadRepoJSON(selectedRepo: String = "", branch: String = "master") {
         var tempRepoList: [RepoData] = []
-        let repoListURL = "https://api.github.com/users/soaltomas/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+        let repoListURL = "https://api.github.com/users/soaltomas/repos"
         
-        Alamofire.request(repoListURL, method: .get).validate().responseJSON() { response in
+        Alamofire.request(repoListURL, method: .get, headers: credentials).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -194,9 +196,25 @@ class ManagerData {
                         repoData.language = json[i]["language"].stringValue
                         repoData.url = json[i]["url"].stringValue
                         repoData.ownerLogin = json[i]["owner"]["login"].stringValue
+                        repoData.updatedDate = json[i]["updated_at"].stringValue
+                        repoData.fork = json[i]["fork"].boolValue
                         if repoData.name == selectedRepo {
                             repoData.currentBranch = branch
                         }
+                        
+                        let oldRepo = self.loadDB(repository: repoData.name)
+                        if !oldRepo.isEmpty {
+                            if repoData.updatedDate != oldRepo[0].updatedDate {
+                                self.managerNotification.sheduleNotification(inSeconds: 10) { (success) in
+                                    if success {
+                                        print("Nitification was sended!")
+                                    } else {
+                                        print("Error of sending notification!")
+                                    }
+                                }
+                            }
+                        }
+                        
                         tempRepoList.append(repoData)
                         i += 1
                     }
@@ -215,10 +233,10 @@ class ManagerData {
     
     
     
-    func searchRepoJSON(url: String = "https://api.github.com/users/soaltomas/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a") {
+    func searchRepoJSON(url: String = "https://api.github.com/users/soaltomas/repos") {
         var tempRepoList: [RepoData] = []
         
-        Alamofire.request(url, method: .get).validate().responseJSON() { response in
+        Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -231,6 +249,8 @@ class ManagerData {
                     repoData.language = json["items"][i]["language"].stringValue
                     repoData.url = json["items"][i]["url"].stringValue
                     repoData.ownerLogin = json["items"][i]["owner"]["login"].stringValue
+                    repoData.updatedDate = json[i]["updated_at"].stringValue
+                    repoData.fork = json[i]["fork"].boolValue
                     tempRepoList.append(repoData)
                     i += 1
                 }
@@ -246,11 +266,11 @@ class ManagerData {
         }
 
     }
-    
+    //?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a
     func loadBranchList(repository: String, user: String) {
         let realm = try! Realm()
-        let url: String = "https://api.github.com/repos/\(user)/\(repository)/branches?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
-        Alamofire.request(url, method: .get).validate().responseJSON() { response in
+        let url: String = "https://api.github.com/repos/\(user)/\(repository)/branches"
+        Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -323,28 +343,17 @@ class ManagerData {
         }
     }
     
-    func loadOWMJSON()  {
-        let url = "http://samples.openweathermap.org/data/2.5/box/city?bbox=12,32,15,37,10&appid=90ed5e72b54eb9d0573beeec4a2e19ce"
-        Alamofire.request(url, method: .get).validate().responseJSON(queue: concurrentQueue) { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                for (_, subJson) in json["list"] {
-                    let city = City(name: subJson["name"].stringValue, lon: subJson["coord"]["lon"].doubleValue, lat: subJson["coord"]["lat"].doubleValue)
-                    self.cityList.append(city)
-                    
-                }
-                loadRepo = true as AnyObject
-                
-            case .failure(let error):
-                print(error)
-            }
-            
-        }
-        
+    
+}
+
+var credentials: [String:String]? {
+    get {
+        return UserDefaults.standard.object(forKey: "credentialHeaders") as? [String:String]
     }
-    
-    
+    set {
+        UserDefaults.standard.set(newValue, forKey: "credentialHeaders")
+        UserDefaults.standard.synchronize()
+    }
 }
 
 var loadRepo: AnyObject? {

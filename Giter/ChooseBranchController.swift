@@ -15,9 +15,6 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var currentRepo: String = ""
     var selectedBranch: String = ""
     
-    @IBAction func selectBranchButton(_ sender: Any) {
-        
-    }
     @IBOutlet weak var branchPicker: UIPickerView!
     
     var branchList = List<BranchData>()
@@ -72,14 +69,14 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "backToRepo" {
-            if let destination = segue.destination as? ViewController {
-                destination.repoName = currentRepo
-                destination.currentBranch = selectedBranch
-                destination.currentDir = "https://api.github.com/repos/soaltomas/\(currentRepo)/contents"
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "backToRepo" {
+//            if let destination = segue.destination as? ViewController {
+//                destination.repoName = currentRepo
+//                destination.currentBranch = selectedBranch
+//                destination.currentDir = "https://api.github.com/repos/soaltomas/\(currentRepo)/contents"
+//            }
+//        }
+//    }
 
 }

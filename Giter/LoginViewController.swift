@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Alamofire
+import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
@@ -18,9 +20,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    var resultLogin: String = ""
+    var headers: [String:String] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(goToApp), name: NSNotification.Name(rawValue: "goToApp"), object: nil)
+        
+        emailField.text = credentials?.values.first?.components(separatedBy: "Basic ")[1].base64Decoded()?.components(separatedBy: ":")[0]
+        passwordField.text = credentials?.values.first?.components(separatedBy: "Basic ")[1].base64Decoded()?.components(separatedBy: ":")[1]
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,15 +38,42 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func tryLogin(_ sender: Any) {
-//        Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
-//            if let error = error {
+//        let credential = GitHubAuthProvider.credential(withToken: "9d233ee0abd93f59e064851653266dc8997ac7ad")
+//
+//        Auth.auth().signIn(with: credential) { (user, error) in
+//            if error != nil {
 //                self.errorText.text = "Incorrect e-mail or password"
 //            }
-//            else if let user = user {
+//            else {
 //                self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
 //            }
 //        }
-        self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
+        
+        let credentialData = "\(emailField.text!):\(passwordField.text!)"
+        let base64Credentials = credentialData.base64Encoded()!
+        headers = ["Authorization": "Basic \(base64Credentials)"]
+        
+        
+        Alamofire.request("https://api.github.com/user", method: .get, headers: headers).validate().responseJSON() { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                self.resultLogin = json["login"].stringValue
+            case .failure(let error):
+                print("Error thing: \(error)")
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToApp"), object: nil)
+        }
+        
+    }
+    
+    func goToApp() {
+        if resultLogin == emailField.text {
+            credentials = headers
+            self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
+        } else {
+            self.errorText.text = "Incorrect e-mail or password"
+        }
     }
     /*
     // MARK: - Navigation

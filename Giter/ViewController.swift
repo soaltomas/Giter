@@ -55,7 +55,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
             }
         }
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
         }
 
     }
@@ -67,7 +67,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
         }
         
     }
@@ -76,7 +76,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         if counter > 0 {
             fileDataArray = manager.loadDirDB(pathToDir: currentDir)[0].fileList
             for value in fileDataArray {
-                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
             }
             self.tableView.reloadData()
         }

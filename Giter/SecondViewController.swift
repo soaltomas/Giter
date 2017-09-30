@@ -59,7 +59,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
             }
         }
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
     }
@@ -71,7 +71,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {
-            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+            manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
         }
 
     }
@@ -80,7 +80,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
         if counter > 0 {
             fileDataArray = manager.loadDirDB(pathToDir: currentDir)[0].fileList
             for value in fileDataArray {
-                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)&client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a", filename: value.name)
+                manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
             }
             self.tableView.reloadData()
         }
