@@ -18,6 +18,7 @@ class TextViewController: UIViewController, AddHeader {
     @IBOutlet var textView : UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let highlightr = Highlightr()
         highlightr?.setTheme(to: "qtcreator_light")
         // You can omit the second parameter to use automatic language detection.

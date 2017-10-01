@@ -20,6 +20,12 @@ class SelfRepository: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let image = UIImage(named: "octocat_iphone_orange")
+        let imageView = UIImageView(image: image)
+        collectionView?.backgroundView = imageView
+        imageView.alpha = 0.4
+        
         navigationItem.hidesBackButton = true
         do {
             let fileManager = FileManager.default

@@ -29,6 +29,11 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let image = UIImage(named: "octocat_iphone_orange")
+        let imageView = UIImageView(image: image)
+        tableView.backgroundView = imageView
+        imageView.alpha = 0.2
+        
         let oldBranch = manager.loadDB(repository: repoName)[0].currentBranch
         if oldBranch != currentBranch {
             manager.setCurrentBranch(repo: repoName, currentBranch: currentBranch)

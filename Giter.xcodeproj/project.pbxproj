@@ -41,6 +41,14 @@
 		C3BA8D2B1F1211DD0082CB6C /* ManagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8D2A1F1211DD0082CB6C /* ManagerData.swift */; };
 		C3BF2D6C1F1CB30E00AF35D9 /* SelfRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF2D6B1F1CB30E00AF35D9 /* SelfRepository.swift */; };
 		C3BF2D6E1F1CCD8700AF35D9 /* RepoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF2D6D1F1CCD8700AF35D9 /* RepoData.swift */; };
+		C3C23C0D1F7F96CB00BF392E /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3C23C0B1F7F96CB00BF392E /* Interface.storyboard */; };
+		C3C23C0F1F7F96CB00BF392E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3C23C0E1F7F96CB00BF392E /* Assets.xcassets */; };
+		C3C23C161F7F96CB00BF392E /* GiterWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C3C23C151F7F96CB00BF392E /* GiterWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C3C23C1D1F7F96CB00BF392E /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C23C1C1F7F96CB00BF392E /* InterfaceController.swift */; };
+		C3C23C1F1F7F96CB00BF392E /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C23C1E1F7F96CB00BF392E /* ExtensionDelegate.swift */; };
+		C3C23C211F7F96CB00BF392E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C23C201F7F96CB00BF392E /* NotificationController.swift */; };
+		C3C23C231F7F96CB00BF392E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3C23C221F7F96CB00BF392E /* Assets.xcassets */; };
+		C3C23C271F7F96CB00BF392E /* GiterWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C3C23C091F7F96CB00BF392E /* GiterWatch.app */; };
 		C3E8A6301F36CD7A00B7903A /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8A62F1F36CD7A00B7903A /* FileData.swift */; };
 		D36CF93C7B4BD261396CFFD7 /* Pods_Giter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C32075610312FD02D3B847 /* Pods_Giter.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +82,20 @@
 			remoteGlobalIDString = C3BA8CF61F120DCD0082CB6C;
 			remoteInfo = Giter;
 		};
+		C3C23C171F7F96CB00BF392E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3BA8CEF1F120DCD0082CB6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3C23C141F7F96CB00BF392E;
+			remoteInfo = "GiterWatch Extension";
+		};
+		C3C23C251F7F96CB00BF392E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3BA8CEF1F120DCD0082CB6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3C23C081F7F96CB00BF392E;
+			remoteInfo = GiterWatch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,8 +117,20 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
+				C3C23C271F7F96CB00BF392E /* GiterWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3C23C2D1F7F96CB00BF392E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C3C23C161F7F96CB00BF392E /* GiterWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -155,6 +189,17 @@
 		C3BA8D2A1F1211DD0082CB6C /* ManagerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerData.swift; sourceTree = "<group>"; };
 		C3BF2D6B1F1CB30E00AF35D9 /* SelfRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfRepository.swift; sourceTree = "<group>"; };
 		C3BF2D6D1F1CCD8700AF35D9 /* RepoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoData.swift; sourceTree = "<group>"; };
+		C3C23C091F7F96CB00BF392E /* GiterWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiterWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3C23C0C1F7F96CB00BF392E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		C3C23C0E1F7F96CB00BF392E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C3C23C101F7F96CB00BF392E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3C23C151F7F96CB00BF392E /* GiterWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "GiterWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3C23C1B1F7F96CB00BF392E /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		C3C23C1C1F7F96CB00BF392E /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		C3C23C1E1F7F96CB00BF392E /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		C3C23C201F7F96CB00BF392E /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		C3C23C221F7F96CB00BF392E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C3C23C241F7F96CB00BF392E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E8A62F1F36CD7A00B7903A /* FileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
 		DDDD20B8055AD90C054C0769 /* Pods-Giter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Giter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Giter/Pods-Giter.debug.xcconfig"; sourceTree = "<group>"; };
 		EDC6D41B49E95CBE2675A8AB /* Pods-Giter-Giter Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Giter-Giter Widget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Giter-Giter Widget/Pods-Giter-Giter Widget.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,6 +245,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8730CAA0770DBAAC07915B6 /* Pods_GiterUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3C23C121F7F96CB00BF392E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +304,8 @@
 				C3BA8D191F120DCD0082CB6C /* GiterUITests */,
 				C324ABCB1F5E8C57000B1619 /* Giter Widget */,
 				C368F9811F629C650082D05B /* Giter iMessage */,
+				C3C23C0A1F7F96CB00BF392E /* GiterWatch */,
+				C3C23C191F7F96CB00BF392E /* GiterWatch Extension */,
 				C3BA8CF81F120DCD0082CB6C /* Products */,
 				96D2C6A913FBED4EDD07BDDA /* Pods */,
 				DFC50BC279734EB745E21869 /* Frameworks */,
@@ -266,6 +320,8 @@
 				C3BA8D161F120DCD0082CB6C /* GiterUITests.xctest */,
 				C324ABC81F5E8C57000B1619 /* Giter Widget.appex */,
 				C368F97E1F629C650082D05B /* Giter iMessage.appex */,
+				C3C23C091F7F96CB00BF392E /* GiterWatch.app */,
+				C3C23C151F7F96CB00BF392E /* GiterWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,6 +369,37 @@
 				C3BA8D1C1F120DCD0082CB6C /* Info.plist */,
 			);
 			path = GiterUITests;
+			sourceTree = "<group>";
+		};
+		C3C23C0A1F7F96CB00BF392E /* GiterWatch */ = {
+			isa = PBXGroup;
+			children = (
+				C3C23C0B1F7F96CB00BF392E /* Interface.storyboard */,
+				C3C23C0E1F7F96CB00BF392E /* Assets.xcassets */,
+				C3C23C101F7F96CB00BF392E /* Info.plist */,
+			);
+			path = GiterWatch;
+			sourceTree = "<group>";
+		};
+		C3C23C191F7F96CB00BF392E /* GiterWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C3C23C1C1F7F96CB00BF392E /* InterfaceController.swift */,
+				C3C23C1E1F7F96CB00BF392E /* ExtensionDelegate.swift */,
+				C3C23C201F7F96CB00BF392E /* NotificationController.swift */,
+				C3C23C221F7F96CB00BF392E /* Assets.xcassets */,
+				C3C23C241F7F96CB00BF392E /* Info.plist */,
+				C3C23C1A1F7F96CB00BF392E /* Supporting Files */,
+			);
+			path = "GiterWatch Extension";
+			sourceTree = "<group>";
+		};
+		C3C23C1A1F7F96CB00BF392E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C3C23C1B1F7F96CB00BF392E /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DFC50BC279734EB745E21869 /* Frameworks */ = {
@@ -391,6 +478,7 @@
 			dependencies = (
 				C324ABD31F5E8C57000B1619 /* PBXTargetDependency */,
 				C368F98B1F629C650082D05B /* PBXTargetDependency */,
+				C3C23C261F7F96CB00BF392E /* PBXTargetDependency */,
 			);
 			name = Giter;
 			productName = Giter;
@@ -439,6 +527,40 @@
 			productReference = C3BA8D161F120DCD0082CB6C /* GiterUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C3C23C081F7F96CB00BF392E /* GiterWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3C23C2E1F7F96CB00BF392E /* Build configuration list for PBXNativeTarget "GiterWatch" */;
+			buildPhases = (
+				C3C23C071F7F96CB00BF392E /* Resources */,
+				C3C23C2D1F7F96CB00BF392E /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3C23C181F7F96CB00BF392E /* PBXTargetDependency */,
+			);
+			name = GiterWatch;
+			productName = GiterWatch;
+			productReference = C3C23C091F7F96CB00BF392E /* GiterWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		C3C23C141F7F96CB00BF392E /* GiterWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3C23C2C1F7F96CB00BF392E /* Build configuration list for PBXNativeTarget "GiterWatch Extension" */;
+			buildPhases = (
+				C3C23C111F7F96CB00BF392E /* Sources */,
+				C3C23C121F7F96CB00BF392E /* Frameworks */,
+				C3C23C131F7F96CB00BF392E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GiterWatch Extension";
+			productName = "GiterWatch Extension";
+			productReference = C3C23C151F7F96CB00BF392E /* GiterWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -459,6 +581,7 @@
 					};
 					C3BA8CF61F120DCD0082CB6C = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = ZFHZRG4G3Z;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -476,6 +599,16 @@
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
 						TestTargetID = C3BA8CF61F120DCD0082CB6C;
+					};
+					C3C23C081F7F96CB00BF392E = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = ZFHZRG4G3Z;
+						ProvisioningStyle = Automatic;
+					};
+					C3C23C141F7F96CB00BF392E = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = ZFHZRG4G3Z;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -497,6 +630,8 @@
 				C3BA8D151F120DCD0082CB6C /* GiterUITests */,
 				C324ABC71F5E8C57000B1619 /* Giter Widget */,
 				C368F97D1F629C650082D05B /* Giter iMessage */,
+				C3C23C081F7F96CB00BF392E /* GiterWatch */,
+				C3C23C141F7F96CB00BF392E /* GiterWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -543,6 +678,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3C23C071F7F96CB00BF392E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3C23C0F1F7F96CB00BF392E /* Assets.xcassets in Resources */,
+				C3C23C0D1F7F96CB00BF392E /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3C23C131F7F96CB00BF392E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3C23C231F7F96CB00BF392E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +952,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3C23C111F7F96CB00BF392E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3C23C211F7F96CB00BF392E /* NotificationController.swift in Sources */,
+				C3C23C1F1F7F96CB00BF392E /* ExtensionDelegate.swift in Sources */,
+				C3C23C1D1F7F96CB00BF392E /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -822,6 +984,16 @@
 			isa = PBXTargetDependency;
 			target = C3BA8CF61F120DCD0082CB6C /* Giter */;
 			targetProxy = C3BA8D171F120DCD0082CB6C /* PBXContainerItemProxy */;
+		};
+		C3C23C181F7F96CB00BF392E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3C23C141F7F96CB00BF392E /* GiterWatch Extension */;
+			targetProxy = C3C23C171F7F96CB00BF392E /* PBXContainerItemProxy */;
+		};
+		C3C23C261F7F96CB00BF392E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3C23C081F7F96CB00BF392E /* GiterWatch */;
+			targetProxy = C3C23C251F7F96CB00BF392E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -856,6 +1028,14 @@
 				C3BA8D041F120DCD0082CB6C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C3C23C0B1F7F96CB00BF392E /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3C23C0C1F7F96CB00BF392E /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1023,7 +1203,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
 				INFOPLIST_FILE = Giter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Giter;
@@ -1041,7 +1221,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
 				INFOPLIST_FILE = Giter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Giter;
@@ -1109,6 +1289,76 @@
 			};
 			name = Release;
 		};
+		C3C23C281F7F96CB00BF392E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
+				IBSC_MODULE = GiterWatch_Extension;
+				INFOPLIST_FILE = GiterWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Giter.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Debug;
+		};
+		C3C23C291F7F96CB00BF392E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
+				IBSC_MODULE = GiterWatch_Extension;
+				INFOPLIST_FILE = GiterWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Giter.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Release;
+		};
+		C3C23C2A1F7F96CB00BF392E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
+				INFOPLIST_FILE = "GiterWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Giter.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Debug;
+		};
+		C3C23C2B1F7F96CB00BF392E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
+				INFOPLIST_FILE = "GiterWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Giter.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1165,6 +1415,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C3C23C2C1F7F96CB00BF392E /* Build configuration list for PBXNativeTarget "GiterWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3C23C2A1F7F96CB00BF392E /* Debug */,
+				C3C23C2B1F7F96CB00BF392E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C3C23C2E1F7F96CB00BF392E /* Build configuration list for PBXNativeTarget "GiterWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3C23C281F7F96CB00BF392E /* Debug */,
+				C3C23C291F7F96CB00BF392E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

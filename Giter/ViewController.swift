@@ -37,6 +37,11 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let image = UIImage(named: "octocat_iphone_orange")
+        let imageView = UIImageView(image: image)
+        tableView.backgroundView = imageView
+        imageView.alpha = 0.2
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
         
         
@@ -57,6 +62,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
         }
+
 
     }
     

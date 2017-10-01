@@ -19,6 +19,11 @@ class SearchViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let image = UIImage(named: "octocat_iphone_orange")
+        let imageView = UIImageView(image: image)
+        tableView.backgroundView = imageView
+        imageView.alpha = 0.2
+        
         self.searchField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(updateSearchTable), name: NSNotification.Name(rawValue: "updateSearchTable"), object: nil)
     }

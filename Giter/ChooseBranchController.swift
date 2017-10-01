@@ -21,6 +21,7 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateBranches), name: NSNotification.Name(rawValue: "updateBranches"), object: nil)
         manager.loadBranchList(repository: currentRepo, user: "soaltomas")
         branchPicker.delegate = self
