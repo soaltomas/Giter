@@ -78,7 +78,6 @@
                                     <constraint firstAttribute="bottomMargin" secondItem="Fb0-aE-nFZ" secondAttribute="bottom" constant="-2" id="e6r-Wz-RGs"/>
                                     <constraint firstItem="Fb0-aE-nFZ" firstAttribute="top" secondItem="sjY-zn-XJi" secondAttribute="bottom" constant="1" id="fxw-ak-y1q"/>
                                     <constraint firstItem="USI-KJ-HBv" firstAttribute="top" secondItem="j3k-h5-PDa" secondAttribute="top" id="hFh-cn-bHb"/>
-                                    <constraint firstItem="Fb0-aE-nFZ" firstAttribute="leading" secondItem="QNH-ks-XPM" secondAttribute="trailing" constant="171" id="kMQ-EN-CbE"/>
                                     <constraint firstItem="QNH-ks-XPM" firstAttribute="top" secondItem="USI-KJ-HBv" secondAttribute="bottom" constant="62" id="mvl-8i-JFY"/>
                                     <constraint firstItem="USI-KJ-HBv" firstAttribute="leading" secondItem="QNH-ks-XPM" secondAttribute="leading" id="qMR-AP-xO8"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="QNH-ks-XPM" secondAttribute="bottom" constant="1" id="qdl-yw-18l"/>
@@ -220,14 +219,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select a branch" id="sOe-zA-FXV"/>
+                    <navigationItem key="navigationItem" title="Select a branch" id="sOe-zA-FXV">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="TaY-mz-ze1">
+                            <connections>
+                                <segue destination="f8v-jq-Lce" kind="show" identifier="backToRepo" animates="NO" id="7DF-0N-YpH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="branchPicker" destination="Rzz-f8-gix" id="Yvj-5N-hsc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-Dl-8cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3019" y="1802"/>
+            <point key="canvasLocation" x="2199" y="1899"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="xVQ-h9-6eg">
@@ -307,7 +312,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXc-MQ-Wtp">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="62" width="320" height="506"/>
                                 <color key="backgroundColor" red="0.93054002523422241" green="0.93849766254425049" blue="0.73268729448318481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -315,10 +320,10 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="zjq-oI-nEt" firstAttribute="top" secondItem="DXc-MQ-Wtp" secondAttribute="bottom" id="G4h-9M-HXt"/>
-                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="top" secondItem="b5P-Tu-g7f" secondAttribute="top" constant="-72" id="Gih-LH-sDm"/>
+                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="top" secondItem="b5P-Tu-g7f" secondAttribute="top" constant="-10" id="Gih-LH-sDm"/>
                             <constraint firstItem="DXc-MQ-Wtp" firstAttribute="leading" secondItem="cQB-Le-PcB" secondAttribute="leading" id="Luf-br-hNE"/>
                             <constraint firstItem="DXc-MQ-Wtp" firstAttribute="centerX" secondItem="b5P-Tu-g7f" secondAttribute="centerX" id="Qn4-9r-edn"/>
-                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="height" secondItem="cQB-Le-PcB" secondAttribute="height" id="ZJn-Uy-Ao0"/>
+                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="height" secondItem="cQB-Le-PcB" secondAttribute="height" constant="-62" id="ZJn-Uy-Ao0"/>
                             <constraint firstItem="DXc-MQ-Wtp" firstAttribute="width" secondItem="cQB-Le-PcB" secondAttribute="width" id="wwy-1Y-QHX"/>
                         </constraints>
                     </view>
@@ -446,5 +451,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5VE-Lg-KbT"/>
+        <segue reference="7DF-0N-YpH"/>
     </inferredMetricsTieBreakers>
 </document>

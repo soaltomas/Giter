@@ -17,9 +17,14 @@ private let reuseIdentifier = "Cell"
 class SelfRepository: UICollectionViewController {
     
     let manager: ManagerData = ManagerData()
+    
+    var currentRepo: String = ""
+    var currentBranch: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCollection), name: NSNotification.Name(rawValue: "updateCollection"), object: nil)
         
         let image = UIImage(named: "octocat_iphone_orange")
         let imageView = UIImageView(image: image)
@@ -42,6 +47,12 @@ class SelfRepository: UICollectionViewController {
             ManagerData.singleManager.getRepoDataFromDB()
 
     }
+        
+    }
+    
+    func updateCollection() {
+        ManagerData.singleManager.getRepoDataFromDB()
+        self.collectionView?.reloadData()
     }
     
 
@@ -82,9 +93,11 @@ class SelfRepository: UICollectionViewController {
         viewDescription.text = ManagerData.singleManager.repoData[indexPath.row].repoDescription
         let labelLanguage: UILabel = cell.viewWithTag(3) as! UILabel
         labelLanguage.text = ManagerData.singleManager.repoData[indexPath.row].language
+        let forkImage: UIImageView = cell.viewWithTag(4) as! UIImageView
         if ManagerData.singleManager.repoData[indexPath.row].fork {
-            let forkImage: UIImageView = cell.viewWithTag(4) as! UIImageView
             forkImage.image = UIImage(named: "if_code-fork_1608638")
+        } else {
+            forkImage.image = UIImage(named: "")
         }
     
         return cell

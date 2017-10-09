@@ -54,6 +54,10 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedBranch = branchList[row].name
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let oldBranch = manager.loadDB(repository: currentRepo)[0].currentBranch
         if oldBranch != selectedBranch {
             manager.setCurrentBranch(repo: currentRepo, currentBranch: selectedBranch)
@@ -66,18 +70,16 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 print("File error: \(error)")
             }
             manager.clearFileListDB(repository: currentRepo)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "clearDataSource"), object: nil)
             manager.loadRepoJSON(selectedRepo: currentRepo, branch: selectedBranch)
         }
+        
+        if segue.identifier == "backToRepo" {
+            if let destination = segue.destination as? SelfRepository {
+                destination.currentRepo = currentRepo
+                destination.currentBranch = selectedBranch
+            }
+        }
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "backToRepo" {
-//            if let destination = segue.destination as? ViewController {
-//                destination.repoName = currentRepo
-//                destination.currentBranch = selectedBranch
-//                destination.currentDir = "https://api.github.com/repos/soaltomas/\(currentRepo)/contents"
-//            }
-//        }
-//    }
 
 }

@@ -20,7 +20,7 @@ protocol FirstLoadNextDirectory {
 }
 
 class ViewController: UITableViewController, SecondLoadNextDirectory {
-    
+
     @IBOutlet weak var branchesButton: UIButton!
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
@@ -30,6 +30,7 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
     var currentDir: String = ""
     var currentBranch: String = "master"
     var branchList = List<BranchData>()
+ //   var choosedBranch: Bool = false
     
     var delegate1: FirstLoadNextDirectory?
     var delegate2: AddHeader?
@@ -43,6 +44,8 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         imageView.alpha = 0.2
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(clearDataSource), name: NSNotification.Name(rawValue: "clearDataSource"), object: nil)
         
         
         if counter != 0 {
@@ -62,8 +65,20 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         for value in fileDataArray {
             manager.getFileContent(url: "\(value.url.components(separatedBy: "?")[0])?ref=\(currentBranch)", filename: value.name)
         }
-
-
+//        if self.choosedBranch {
+//            let repository = self.manager.loadDB(repository: self.repoName)
+//           // fileDataArray.append(manager.loadDirDB(pathToDir: "\(repository[0].url)")[0])
+//            for value in repository[0].fileList {
+//                self.fileDataArray.append(value)
+//            }
+//            self.tableView.reloadData()
+//            self.choosedBranch = false
+//        }
+    }
+    
+    func clearDataSource() {
+        fileDataArray.removeAll()
+      //  self.choosedBranch = true
     }
     
     func secondLoadNextDirectory(url: String, branch: String) {

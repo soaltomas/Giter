@@ -68,7 +68,7 @@ class LoginViewController: UIViewController {
     }
     
     func goToApp() {
-        if resultLogin == emailField.text {
+        if resultLogin == emailField.text && !(emailField.text?.isEmpty)! {
             credentials = headers
             self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
         } else {

@@ -34,13 +34,7 @@ private let _singleManager = ManagerData()
 class ManagerData {
     
     let managerNotification: ManagerNotification = ManagerNotification()
-    
-    struct City {
-        let name: String
-        let lon: Double
-        let lat: Double
-    }
-    
+
     class var singleManager: ManagerData {
         return _singleManager
     }
@@ -61,8 +55,6 @@ class ManagerData {
     }
     
     var fileList: [FileData] = [] //---List for display directory content
-    
-    var cityList: [City] = [] //---temporary list for save city
     
     
     let concurrentQueue = DispatchQueue(label: "concurrent_queue", attributes: .concurrent)
@@ -174,6 +166,7 @@ class ManagerData {
                     print("Error thing: \(error)")
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateTable"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCollection"), object: nil)
             }
             
         }
