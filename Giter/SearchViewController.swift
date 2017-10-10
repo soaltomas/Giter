@@ -16,6 +16,10 @@ class SearchViewController: UITableViewController, UITextFieldDelegate {
     var repoKeyWord: String = ""
     var searchResults: [RepoData] = []
     
+    @IBAction func forkRepository(_ sender: UIButton) {
+        let repo: RepoData = manager.loadDB(repository: sender.layer.value(forKey: "name") as! String)[0]
+        manager.forkRepository(owner: repo.ownerLogin, repoName: repo.name)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +57,9 @@ class SearchViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = searchResults[indexPath.row].name
+        
+        let forkButton: UIButton = cell.viewWithTag(1) as! UIButton
+        forkButton.layer.setValue(cell.textLabel?.text, forKey: "name")
 
         return cell
     }

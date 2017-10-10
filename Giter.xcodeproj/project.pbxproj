@@ -1423,6 +1423,7 @@
 				C3C23C2B1F7F96CB00BF392E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C3C23C2E1F7F96CB00BF392E /* Build configuration list for PBXNativeTarget "GiterWatch" */ = {
 			isa = XCConfigurationList;
@@ -1431,6 +1432,7 @@
 				C3C23C291F7F96CB00BF392E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

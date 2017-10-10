@@ -93,12 +93,17 @@ class SelfRepository: UICollectionViewController {
         viewDescription.text = ManagerData.singleManager.repoData[indexPath.row].repoDescription
         let labelLanguage: UILabel = cell.viewWithTag(3) as! UILabel
         labelLanguage.text = ManagerData.singleManager.repoData[indexPath.row].language
+        let labelBranch: UILabel = cell.viewWithTag(5) as! UILabel
+        labelBranch.text = ManagerData.singleManager.repoData[indexPath.row].currentBranch
         let forkImage: UIImageView = cell.viewWithTag(4) as! UIImageView
         if ManagerData.singleManager.repoData[indexPath.row].fork {
             forkImage.image = UIImage(named: "if_code-fork_1608638")
         } else {
             forkImage.image = UIImage(named: "")
         }
+        
+        let selectBranchButton: UIButton = cell.viewWithTag(6) as! UIButton
+        selectBranchButton.layer.setValue(indexPath.row, forKey: "index")
     
         return cell
     }
@@ -112,6 +117,12 @@ class SelfRepository: UICollectionViewController {
                // manager.loadBranchList(repository: selectedItem, user: "soaltomas")
                 destination.repoName = selectedItem
                 destination.currentBranch = ManagerData.singleManager.repoData[(indexPath?.row)!].currentBranch
+            }
+        }
+        if segue.identifier == "branches" {
+            if let destination = segue.destination as? ChooseBranchController {
+                let button = sender as! UIButton
+                destination.currentRepo = ManagerData.singleManager.repoData[(button.layer.value(forKey: "index") as! Int)].name
             }
         }
     }

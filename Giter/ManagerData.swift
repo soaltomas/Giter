@@ -259,6 +259,21 @@ class ManagerData {
         }
 
     }
+    
+    func forkRepository(owner: String, repoName: String) {
+        let url = "https://api.github.com/repos/\(owner)/\(repoName)/forks"
+        
+        Alamofire.request(url, method: .post, headers: credentials).validate().responseJSON() { response in
+            switch response.result {
+            case .success( _):
+                print("Repository \(owner) will be forked")
+            case .failure(let error):
+                print("Error thing: \(error)")
+            }
+        }
+
+    }
+    
     //?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a
     func loadBranchList(repository: String, user: String) {
         let realm = try! Realm()

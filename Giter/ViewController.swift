@@ -21,7 +21,6 @@ protocol FirstLoadNextDirectory {
 
 class ViewController: UITableViewController, SecondLoadNextDirectory {
 
-    @IBOutlet weak var branchesButton: UIButton!
     let manager: ManagerData = ManagerData()
     var repoName: String = ""
     var fileDataArray = List<FileData>()
@@ -47,12 +46,6 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         
         NotificationCenter.default.addObserver(self, selector: #selector(clearDataSource), name: NSNotification.Name(rawValue: "clearDataSource"), object: nil)
         
-        
-        if counter != 0 {
-            branchesButton.isHidden = true
-        } else {
-            branchesButton.isHidden = false
-        }
         if counter == 0 {
             let repository = manager.loadDB(repository: repoName)
             for value in repository[0].fileList {
@@ -160,14 +153,6 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
             secondTableView.repoName = self.repoName
             delegate1?.firstLoadNextDirectory(url: dirUrl, branch: self.currentBranch)
             navigationController?.pushViewController(secondTableView, animated: true)
-        }
-    }
-    //---Go to choose branch---
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "branches" {
-            if let destination = segue.destination as? ChooseBranchController {
-                destination.currentRepo = self.repoName
-            }
         }
     }
     
