@@ -174,7 +174,7 @@ class ManagerData {
     
     func loadRepoJSON(selectedRepo: String = "", branch: String = "master") {
         var tempRepoList: [RepoData] = []
-        let repoListURL = "https://api.github.com/users/soaltomas/repos"
+        let repoListURL = "https://api.github.com/users/\(currentUser!)/repos"
         
         Alamofire.request(repoListURL, method: .get, headers: credentials).validate().responseJSON() { response in
             switch response.result {
@@ -212,8 +212,8 @@ class ManagerData {
                         i += 1
                     }
                 for repo in tempRepoList {
-                    self.loadJSON(repository: repo, user: "soaltomas", pathToDir: "\(repo.url)/contents")
-                  //  self.loadBranchList(repository: repo, user: "soaltomas")
+                    self.loadJSON(repository: repo, user: currentUser!, pathToDir: "\(repo.url)/contents")
+                  //  self.loadBranchList(repository: repo, user: currentUser!)
                 }
                 
                 
@@ -226,7 +226,7 @@ class ManagerData {
     
     
     
-    func searchRepoJSON(url: String = "https://api.github.com/users/soaltomas/repos") {
+    func searchRepoJSON(url: String = "https://api.github.com/users/\(currentUser!))/repos") {
         var tempRepoList: [RepoData] = []
         
         Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
@@ -248,7 +248,7 @@ class ManagerData {
                     i += 1
                 }
                 for repo in tempRepoList {
-                    self.loadJSON(repository: repo, user: "soaltomas", pathToDir: "\(repo.url)/contents")
+                    self.loadJSON(repository: repo, user: currentUser!, pathToDir: "\(repo.url)/contents")
                 }
                 
                 
@@ -337,7 +337,7 @@ class ManagerData {
             let repo = try! Realm().objects(RepoData.self).filter("name BEGINSWITH %@", repository)
             repo[0].fileList.removeAll()
             realm.add(repo, update: true)
-            let files = try! Realm().objects(FileData.self).filter("url BEGINSWITH 'https://api.github.com/repos/soaltomas/\(repository)'")
+            let files = try! Realm().objects(FileData.self).filter("url BEGINSWITH 'https://api.github.com/repos/\(currentUser!)/\(repository)'")
             realm.delete(files)
         }
     }
@@ -360,6 +360,16 @@ var credentials: [String:String]? {
     }
     set {
         UserDefaults.standard.set(newValue, forKey: "credentialHeaders")
+        UserDefaults.standard.synchronize()
+    }
+}
+
+var currentUser: String? {
+    get {
+        return UserDefaults.standard.object(forKey: "currentUser") as? String
+    }
+    set {
+        UserDefaults.standard.set(newValue, forKey: "currentUser")
         UserDefaults.standard.synchronize()
     }
 }

@@ -70,9 +70,10 @@ class LoginViewController: UIViewController {
     func goToApp() {
         if resultLogin == emailField.text && !(emailField.text?.isEmpty)! {
             credentials = headers
+            currentUser = emailField.text
             self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
         } else {
-            self.errorText.text = "Incorrect e-mail or password"
+            self.errorText.text = "Incorrect login or password"
         }
     }
     /*

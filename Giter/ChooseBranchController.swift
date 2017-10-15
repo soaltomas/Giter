@@ -23,7 +23,7 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateBranches), name: NSNotification.Name(rawValue: "updateBranches"), object: nil)
-        manager.loadBranchList(repository: currentRepo, user: "soaltomas")
+        manager.loadBranchList(repository: currentRepo, user: currentUser!)
         branchPicker.delegate = self
         branchPicker.dataSource = self
     }

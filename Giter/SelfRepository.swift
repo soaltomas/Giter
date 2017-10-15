@@ -18,6 +18,8 @@ class SelfRepository: UICollectionViewController {
     
     let manager: ManagerData = ManagerData()
     
+    var repoDataArray = List<RepoData>()
+    
     var currentRepo: String = ""
     var currentBranch: String = ""
 
@@ -45,6 +47,12 @@ class SelfRepository: UICollectionViewController {
             manager.loadRepoJSON()
         } else {
             ManagerData.singleManager.getRepoDataFromDB()
+            repoDataArray.removeAll()
+            for repo in ManagerData.singleManager.repoData {
+                if repo.ownerLogin == currentUser! {
+                    repoDataArray.append(repo)
+                }
+            }
 
     }
         
@@ -52,6 +60,12 @@ class SelfRepository: UICollectionViewController {
     
     func updateCollection() {
         ManagerData.singleManager.getRepoDataFromDB()
+        repoDataArray.removeAll()
+        for repo in ManagerData.singleManager.repoData {
+            if repo.ownerLogin == currentUser! {
+                repoDataArray.append(repo)
+            }
+        }
         self.collectionView?.reloadData()
     }
     
@@ -81,7 +95,7 @@ class SelfRepository: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return ManagerData.singleManager.repoData.count
+        return repoDataArray.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -114,7 +128,7 @@ class SelfRepository: UICollectionViewController {
                 let cell = sender as! UICollectionViewCell
                 let indexPath = self.collectionView?.indexPath(for: cell)
                 let selectedItem = ManagerData.singleManager.repoData[(indexPath?.row)!].name
-               // manager.loadBranchList(repository: selectedItem, user: "soaltomas")
+               // manager.loadBranchList(repository: selectedItem, user: currentUser!)
                 destination.repoName = selectedItem
                 destination.currentBranch = ManagerData.singleManager.repoData[(indexPath?.row)!].currentBranch
             }

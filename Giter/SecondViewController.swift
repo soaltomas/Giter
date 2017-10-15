@@ -72,7 +72,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
     func firstLoadNextDirectory(url: String, branch: String) {
         currentDir = url
         let repository = manager.loadDB(repository: repoName)[0]
-        manager.loadJSON(repository: repository, user: "soaltomas", pathToDir: url)
+        manager.loadJSON(repository: repository, user: currentUser!, pathToDir: url)
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {

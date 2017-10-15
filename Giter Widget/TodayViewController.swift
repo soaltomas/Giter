@@ -35,7 +35,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let repoListURL = "https://api.github.com/users/soaltomas/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
+        let repoListURL = "https://api.github.com/users/\(currentUser!)/repos?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a"
         Alamofire.request(repoListURL, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
