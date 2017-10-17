@@ -167,6 +167,7 @@ class ManagerData {
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateTable"), object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCollection"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSearchTable"), object: nil)
             }
             
         }
@@ -244,6 +245,7 @@ class ManagerData {
                     repoData.ownerLogin = json["items"][i]["owner"]["login"].stringValue
                     repoData.updatedDate = json[i]["updated_at"].stringValue
                     repoData.fork = json[i]["fork"].boolValue
+                    repoData.isSelf = false
                     tempRepoList.append(repoData)
                     i += 1
                 }
@@ -255,7 +257,6 @@ class ManagerData {
             case .failure(let error):
                 print("Error thing: \(error)")
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSearchTable"), object: nil)
         }
 
     }
@@ -271,6 +272,8 @@ class ManagerData {
                 print("Error thing: \(error)")
             }
         }
+        
+        self.loadRepoJSON()
 
     }
     
@@ -341,6 +344,19 @@ class ManagerData {
             realm.delete(files)
         }
     }
+    
+    func clearDB() {
+        let realm = try! Realm()
+        try! realm.write {
+            let repos = try! Realm().objects(RepoData.self)
+            let files = try! Realm().objects(FileData.self)
+            let branches = try! Realm().objects(BranchData.self)
+            realm.delete(repos)
+            realm.delete(files)
+            realm.delete(branches)
+        }
+    }
+    
     //---This function sets the value for the field currentBranch
     func setCurrentBranch(repo: String,  currentBranch: String) {
         let realm = try! Realm()

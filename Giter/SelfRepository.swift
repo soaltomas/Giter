@@ -23,6 +23,10 @@ class SelfRepository: UICollectionViewController {
     var currentRepo: String = ""
     var currentBranch: String = ""
 
+    @IBAction func refreshButton(_ sender: Any) {
+        manager.clearDB()
+        manager.loadRepoJSON()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

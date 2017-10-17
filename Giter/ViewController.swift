@@ -11,10 +11,6 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-protocol AddHeader {
-    func addHeader(name: String)
-}
-
 protocol FirstLoadNextDirectory {
     func firstLoadNextDirectory(url: String, branch: String)
 }
@@ -32,7 +28,6 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
  //   var choosedBranch: Bool = false
     
     var delegate1: FirstLoadNextDirectory?
-    var delegate2: AddHeader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,11 +121,9 @@ class ViewController: UITableViewController, SecondLoadNextDirectory {
         let tvc = storyboard?.instantiateViewController(withIdentifier: "textView") as! TextViewController
         let secondTableView = storyboard?.instantiateViewController(withIdentifier: "secondTableView") as! SecondViewController
         delegate1 = secondTableView
-        delegate2 = tvc
         if fileDataArray[indexPath.row].type == "file" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 do{
-                    delegate2?.addHeader(name: fileDataArray[indexPath.row].name)
                     let path = NSHomeDirectory() + "/Documents/files/\(fileDataArray[indexPath.row].name)"
                     let text = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue) as String
                     var result: String = ""

@@ -20,7 +20,6 @@ class SearchViewController: UITableViewController, UITextFieldDelegate {
         let repo: RepoData = manager.loadDB(repository: sender.layer.value(forKey: "name") as! String)[0]
         manager.forkRepository(owner: repo.ownerLogin, repoName: repo.name)
         sender.setImage(UIImage(named: "Check-icon"), for: .normal)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateCollection"), object: nil)
         self.tableView.reloadData()
     }
     override func viewDidLoad() {

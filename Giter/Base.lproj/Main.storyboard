@@ -14,7 +14,7 @@
         <scene sceneID="nBf-Ld-Gcx">
             <objects>
                 <collectionViewController id="f8v-jq-Lce" customClass="SelfRepository" customModule="Giter" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="rtm-jX-KTH">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="rtm-jX-KTH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -71,10 +71,14 @@
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxf-kl-eaH">
-                                            <rect key="frame" x="250" y="0.0" width="59" height="113"/>
+                                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pxf-kl-eaH">
+                                            <rect key="frame" x="247" y="0.0" width="62" height="113"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button" image="selectBranch"/>
+                                            <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="0.36023116438356162" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Choose branch">
+                                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
                                             <connections>
                                                 <segue destination="U6H-DN-83V" kind="show" identifier="branches" id="gMf-Ob-A6W"/>
                                             </connections>
@@ -114,6 +118,11 @@
                         <barButtonItem image="home" id="6LB-XY-AgO"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Fea-6Y-EH2">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="zYN-ms-rV2">
+                            <connections>
+                                <action selector="refreshButton:" destination="f8v-jq-Lce" id="L7r-K9-fCI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="DX5-BS-mtH">
                             <connections>
                                 <segue destination="Tyf-8j-Aph" kind="show" id="LqZ-Fv-T16"/>
@@ -123,7 +132,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GJH-MH-7We" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293" y="799"/>
+            <point key="canvasLocation" x="1291.875" y="798.59154929577471"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="QAA-E4-t0U">
@@ -233,10 +242,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="octocat_iphone_orange" translatesAutoresizingMaskIntoConstraints="NO" id="1tO-sP-bbB">
+                                <rect key="frame" x="0.0" y="8" width="320" height="560"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rzz-f8-gix">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -255,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxY-Dl-8cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2199" y="1899"/>
+            <point key="canvasLocation" x="2197.5" y="1898.2394366197184"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="xVQ-h9-6eg">
@@ -333,32 +345,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5P-Tu-g7f">
-                                <rect key="frame" x="16" y="72" width="288" height="28"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Label">
-                                        <attributes>
-                                            <color key="NSColor" red="0.0211840863701384" green="0.4223405116580311" blue="0.079347026735560586" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="17" name=".SFNSText"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXc-MQ-Wtp">
-                                <rect key="frame" x="0.0" y="18" width="320" height="506"/>
-                                <color key="backgroundColor" red="0.93054002523422241" green="0.93849766254425049" blue="0.73268729448318481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="62" width="320" height="462"/>
+                                <color key="backgroundColor" red="1" green="0.91915239705476226" blue="0.93513798619392163" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="zjq-oI-nEt" firstAttribute="top" secondItem="DXc-MQ-Wtp" secondAttribute="bottom" id="G4h-9M-HXt"/>
-                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="top" secondItem="b5P-Tu-g7f" secondAttribute="top" constant="-10" id="Gih-LH-sDm"/>
                             <constraint firstItem="DXc-MQ-Wtp" firstAttribute="leading" secondItem="cQB-Le-PcB" secondAttribute="leading" id="Luf-br-hNE"/>
-                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="centerX" secondItem="b5P-Tu-g7f" secondAttribute="centerX" id="Qn4-9r-edn"/>
-                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="height" secondItem="cQB-Le-PcB" secondAttribute="height" constant="-62" id="ZJn-Uy-Ao0"/>
+                            <constraint firstItem="DXc-MQ-Wtp" firstAttribute="height" secondItem="cQB-Le-PcB" secondAttribute="height" constant="-106" id="ZJn-Uy-Ao0"/>
                             <constraint firstItem="DXc-MQ-Wtp" firstAttribute="width" secondItem="cQB-Le-PcB" secondAttribute="width" id="wwy-1Y-QHX"/>
                         </constraints>
                     </view>
@@ -371,7 +368,6 @@
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="header" destination="b5P-Tu-g7f" id="Oyu-D4-dSA"/>
                         <outlet property="textView" destination="DXc-MQ-Wtp" id="quR-CP-lEr"/>
                     </connections>
                 </viewController>
@@ -496,10 +492,9 @@
     <resources>
         <image name="home" width="25" height="25"/>
         <image name="octocat_iphone_orange" width="640" height="960"/>
-        <image name="selectBranch" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7DF-0N-YpH"/>
-        <segue reference="hNq-Sp-LRE"/>
+        <segue reference="5VE-Lg-KbT"/>
     </inferredMetricsTieBreakers>
 </document>

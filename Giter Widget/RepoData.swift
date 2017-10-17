@@ -2,7 +2,7 @@
 //  RepoData.swift
 //  Giter
 //
-//  Created by Артем Полушин on 17.07.17.
+//  Created by Артем Полушин on 16.10.17.
 //  Copyright © 2017 Артем Полушин. All rights reserved.
 //
 
@@ -20,8 +20,6 @@ class RepoData: Object {
     dynamic var currentBranch: String = "master"
     dynamic var fork: Bool = false
     dynamic var isSelf: Bool = true
-    var fileList = List<FileData>()
-    var branchList = List<BranchData>()
     
     override static func primaryKey() -> String? {
         return "id"

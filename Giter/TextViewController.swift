@@ -9,12 +9,9 @@
 import UIKit
 import Highlightr
 
-class TextViewController: UIViewController, AddHeader {
+class TextViewController: UIViewController {
 
-    
-    @IBOutlet weak var header: UILabel!
     var text: String = ""
-    var headerText: String = ""
     @IBOutlet var textView : UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +21,6 @@ class TextViewController: UIViewController, AddHeader {
         // You can omit the second parameter to use automatic language detection.
         let highlightedCode = highlightr?.highlight(text)
         textView.attributedText = highlightedCode
-        header.text = headerText
-    }
-    
-    func addHeader(name: String) {
-        headerText = name
     }
 
     override func didReceiveMemoryWarning() {
