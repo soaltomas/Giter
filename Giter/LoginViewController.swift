@@ -20,6 +20,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    let manager: ManagerData = ManagerData()
+    
     var resultLogin: String = ""
     var headers: [String:String] = [:]
     
@@ -69,6 +71,9 @@ class LoginViewController: UIViewController {
     
     func goToApp() {
         if resultLogin == emailField.text && !(emailField.text?.isEmpty)! {
+            manager.clearDB()
+            manager.loadRepoJSON()
+            loadRepo = nil
             credentials = headers
             currentUser = emailField.text
             self.performSegue(withIdentifier: "CurrentlyLoggedIn", sender: nil)
