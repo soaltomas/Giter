@@ -277,7 +277,6 @@ class ManagerData {
 
     }
     
-    //?client_id=8e053ea5a630b94a4bff&client_secret=2486d4165ac963432120e7c4d5a8cbcb5b745c4a
     func loadBranchList(repository: String, user: String) {
         let realm = try! Realm()
         let url: String = "https://api.github.com/repos/\(user)/\(repository)/branches"
