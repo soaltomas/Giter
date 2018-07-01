@@ -1,11 +1,3 @@
-//
-//  SecondViewController.swift
-//  Giter
-//
-//  Created by Артем Полушин on 28.08.17.
-//  Copyright © 2017 Артем Полушин. All rights reserved.
-//
-
 import UIKit
 import Alamofire
 import SwiftyJSON
@@ -53,7 +45,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
             }
             manager.clearFileListDB(repository: repoName)
             fileDataArray.removeAll()
-            manager.loadRepoJSON(selectedRepo: repoName, branch: currentBranch)
+          //  manager.loadRepoJSON(selectedRepo: repoName, branch: currentBranch)
         }
 
         
@@ -72,7 +64,7 @@ class SecondViewController: UITableViewController, FirstLoadNextDirectory {
     func firstLoadNextDirectory(url: String, branch: String) {
         currentDir = url
         let repository = manager.loadDB(repository: repoName)[0]
-        manager.loadJSON(repository: repository, user: currentUser!, pathToDir: url)
+        manager.loadJSON(repository: repository, user: "soaltomas", pathToDir: url)
         fileDataArray.removeAll()
         fileDataArray.append(contentsOf: manager.loadDirDB(pathToDir: url)[0].fileList)
         for value in fileDataArray {

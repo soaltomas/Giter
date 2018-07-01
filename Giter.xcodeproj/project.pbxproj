@@ -34,6 +34,18 @@
 		C39FB7CB1F262A2E000928B2 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39FB7CA1F262A2E000928B2 /* TextViewController.swift */; };
 		C3A09D151F54080B006B7619 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A09D141F54080B006B7619 /* SecondViewController.swift */; };
 		C3AC5E1F1F33607600284866 /* AccessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AC5E1E1F33607500284866 /* AccessData.swift */; };
+		C3B28AB520CF618500CF473C /* SessionManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AB420CF618500CF473C /* SessionManagerFactory.swift */; };
+		C3B28AB720CF622200CF473C /* AbstractErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AB620CF622200CF473C /* AbstractErrorParser.swift */; };
+		C3B28AB920CF625800CF473C /* ErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AB820CF625800CF473C /* ErrorParser.swift */; };
+		C3B28ABB20CF62F200CF473C /* AbstractRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28ABA20CF62F200CF473C /* AbstractRequestFactory.swift */; };
+		C3B28ABD20CF77CE00CF473C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28ABC20CF77CE00CF473C /* User.swift */; };
+		C3B28ABF20CFCE3C00CF473C /* AuthRequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28ABE20CFCE3C00CF473C /* AuthRequestRouter.swift */; };
+		C3B28AC120CFFED000CF473C /* OAuthRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AC020CFFED000CF473C /* OAuthRequestFactory.swift */; };
+		C3B28AC320D0063400CF473C /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AC220D0063400CF473C /* LoginResponse.swift */; };
+		C3B28AC520D4E34F00CF473C /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B28AC420D4E34F00CF473C /* Auth.plist */; };
+		C3B28AC720D5E6B300CF473C /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AC620D5E6B300CF473C /* RequestRouter.swift */; };
+		C3B28AC920D7B60400CF473C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28AC820D7B60400CF473C /* Repository.swift */; };
+		C3B28ACB20DBA4E500CF473C /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B28ACA20DBA4E500CF473C /* RequestFactory.swift */; };
 		C3BA8CFB1F120DCD0082CB6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */; };
 		C3BA8CFD1F120DCD0082CB6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BA8CFC1F120DCD0082CB6C /* ViewController.swift */; };
 		C3BA8D001F120DCD0082CB6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3BA8CFE1F120DCD0082CB6C /* Main.storyboard */; };
@@ -51,6 +63,7 @@
 		C3C23C211F7F96CB00BF392E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C23C201F7F96CB00BF392E /* NotificationController.swift */; };
 		C3C23C231F7F96CB00BF392E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3C23C221F7F96CB00BF392E /* Assets.xcassets */; };
 		C3C23C271F7F96CB00BF392E /* GiterWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C3C23C091F7F96CB00BF392E /* GiterWatch.app */; };
+		C3CD5BF420DF5D73008F369D /* RepositoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD5BF320DF5D73008F369D /* RepositoryRepository.swift */; };
 		C3E8A6301F36CD7A00B7903A /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8A62F1F36CD7A00B7903A /* FileData.swift */; };
 		D36CF93C7B4BD261396CFFD7 /* Pods_Giter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C32075610312FD02D3B847 /* Pods_Giter.framework */; };
 /* End PBXBuildFile section */
@@ -179,6 +192,18 @@
 		C39FB7CA1F262A2E000928B2 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		C3A09D141F54080B006B7619 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		C3AC5E1E1F33607500284866 /* AccessData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessData.swift; sourceTree = "<group>"; };
+		C3B28AB420CF618500CF473C /* SessionManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerFactory.swift; sourceTree = "<group>"; };
+		C3B28AB620CF622200CF473C /* AbstractErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractErrorParser.swift; sourceTree = "<group>"; };
+		C3B28AB820CF625800CF473C /* ErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorParser.swift; sourceTree = "<group>"; };
+		C3B28ABA20CF62F200CF473C /* AbstractRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRequestFactory.swift; sourceTree = "<group>"; };
+		C3B28ABC20CF77CE00CF473C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C3B28ABE20CFCE3C00CF473C /* AuthRequestRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestRouter.swift; sourceTree = "<group>"; };
+		C3B28AC020CFFED000CF473C /* OAuthRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthRequestFactory.swift; sourceTree = "<group>"; };
+		C3B28AC220D0063400CF473C /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		C3B28AC420D4E34F00CF473C /* Auth.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth.plist; sourceTree = "<group>"; };
+		C3B28AC620D5E6B300CF473C /* RequestRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
+		C3B28AC820D7B60400CF473C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		C3B28ACA20DBA4E500CF473C /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		C3BA8CF71F120DCD0082CB6C /* Giter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Giter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BA8CFC1F120DCD0082CB6C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +230,7 @@
 		C3C23C201F7F96CB00BF392E /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		C3C23C221F7F96CB00BF392E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3C23C241F7F96CB00BF392E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3CD5BF320DF5D73008F369D /* RepositoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryRepository.swift; sourceTree = "<group>"; };
 		C3E8A62F1F36CD7A00B7903A /* FileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
 		DDDD20B8055AD90C054C0769 /* Pods-Giter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Giter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Giter/Pods-Giter.debug.xcconfig"; sourceTree = "<group>"; };
 		EDC6D41B49E95CBE2675A8AB /* Pods-Giter-Giter Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Giter-Giter Widget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Giter-Giter Widget/Pods-Giter-Giter Widget.debug.xcconfig"; sourceTree = "<group>"; };
@@ -260,6 +286,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F460297E6407D22A97668CCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -303,6 +336,105 @@
 			path = "Giter iMessage";
 			sourceTree = "<group>";
 		};
+		C3B28AAA20CD208800CF473C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C3B28AB020CD20DC00CF473C /* Repository */,
+				C3B28AAF20CD20D200CF473C /* Entities */,
+				C3B28AAE20CD20C900CF473C /* Controllers */,
+				C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C3B28AAB20CD208E00CF473C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C3B28AB120CD226E00CF473C /* Network */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C3B28AAC20CD209700CF473C /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		C3B28AAD20CD20A400CF473C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C324ABDA1F5E95F9000B1619 /* Assets.xcassets */,
+				C3BA8CFE1F120DCD0082CB6C /* Main.storyboard */,
+				C3BA8D031F120DCD0082CB6C /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C3B28AAE20CD20C900CF473C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C381EE371F6514F900C4B968 /* SearchViewController.swift */,
+				C3BA8CFC1F120DCD0082CB6C /* ViewController.swift */,
+				C38B209C1F6D21CC006DCF2D /* ChooseBranchController.swift */,
+				C39FB7CA1F262A2E000928B2 /* TextViewController.swift */,
+				C3A09D141F54080B006B7619 /* SecondViewController.swift */,
+				C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */,
+				C3BF2D6B1F1CB30E00AF35D9 /* SelfRepository.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C3B28AAF20CD20D200CF473C /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				C3B28ABC20CF77CE00CF473C /* User.swift */,
+				C3B28AC220D0063400CF473C /* LoginResponse.swift */,
+				C3B28AC820D7B60400CF473C /* Repository.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C3B28AB020CD20DC00CF473C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C3CD5BF320DF5D73008F369D /* RepositoryRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		C3B28AB120CD226E00CF473C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C3B28AB320CD228500CF473C /* Requests */,
+				C3B28AB220CD227B00CF473C /* Error */,
+				C3B28AB420CF618500CF473C /* SessionManagerFactory.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C3B28AB220CD227B00CF473C /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				C3B28AB620CF622200CF473C /* AbstractErrorParser.swift */,
+				C3B28AB820CF625800CF473C /* ErrorParser.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		C3B28AB320CD228500CF473C /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				C3B28ABA20CF62F200CF473C /* AbstractRequestFactory.swift */,
+				C3B28ABE20CFCE3C00CF473C /* AuthRequestRouter.swift */,
+				C3B28AC020CFFED000CF473C /* OAuthRequestFactory.swift */,
+				C3B28AC620D5E6B300CF473C /* RequestRouter.swift */,
+				C3B28ACA20DBA4E500CF473C /* RequestFactory.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		C3BA8CEE1F120DCD0082CB6C = {
 			isa = PBXGroup;
 			children = (
@@ -337,26 +469,20 @@
 			isa = PBXGroup;
 			children = (
 				C30C37BF1F94DCD2001467CF /* Giter.entitlements */,
-				C3BA8CFA1F120DCD0082CB6C /* AppDelegate.swift */,
+				C3BA8D061F120DCD0082CB6C /* Info.plist */,
+				C35F3D461F3C62B200E87A27 /* GoogleService-Info.plist */,
+				C3B28AAD20CD20A400CF473C /* Resources */,
+				C3B28AAC20CD209700CF473C /* Environment */,
+				C3B28AAB20CD208E00CF473C /* Core */,
+				C3B28AAA20CD208800CF473C /* App */,
 				C3062DF41F776BB00040635F /* ManagerNotification.swift */,
-				C381EE371F6514F900C4B968 /* SearchViewController.swift */,
-				C3BA8CFC1F120DCD0082CB6C /* ViewController.swift */,
 				C30DB2841F6E088C0074F65C /* BranchData.swift */,
-				C38B209C1F6D21CC006DCF2D /* ChooseBranchController.swift */,
 				C3AC5E1E1F33607500284866 /* AccessData.swift */,
-				C39FB7CA1F262A2E000928B2 /* TextViewController.swift */,
-				C3A09D141F54080B006B7619 /* SecondViewController.swift */,
-				C35F3D4F1F3C821F00E87A27 /* LoginViewController.swift */,
-				C3BF2D6B1F1CB30E00AF35D9 /* SelfRepository.swift */,
 				C3BF2D6D1F1CCD8700AF35D9 /* RepoData.swift */,
 				C3BA8D2A1F1211DD0082CB6C /* ManagerData.swift */,
 				C3E8A62F1F36CD7A00B7903A /* FileData.swift */,
-				C324ABDA1F5E95F9000B1619 /* Assets.xcassets */,
-				C3BA8CFE1F120DCD0082CB6C /* Main.storyboard */,
-				C35F3D461F3C62B200E87A27 /* GoogleService-Info.plist */,
-				C3BA8D031F120DCD0082CB6C /* LaunchScreen.storyboard */,
-				C3BA8D061F120DCD0082CB6C /* Info.plist */,
 				C35F3D4A1F3C74E400E87A27 /* Giter-Bridging-Header.h */,
+				C3B28AC420D4E34F00CF473C /* Auth.plist */,
 			);
 			path = Giter;
 			sourceTree = "<group>";
@@ -438,7 +564,6 @@
 				C324ABC41F5E8C57000B1619 /* Sources */,
 				C324ABC51F5E8C57000B1619 /* Frameworks */,
 				C324ABC61F5E8C57000B1619 /* Resources */,
-				B0D074F3837647F7EE861152 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -457,7 +582,6 @@
 				C368F97A1F629C650082D05B /* Sources */,
 				C368F97B1F629C650082D05B /* Frameworks */,
 				C368F97C1F629C650082D05B /* Resources */,
-				E1378B9A8393C1861ED4E533 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -477,7 +601,6 @@
 				C3BA8CF41F120DCD0082CB6C /* Frameworks */,
 				C3BA8CF51F120DCD0082CB6C /* Resources */,
 				D85BAF799E75303B90E2190B /* [CP] Embed Pods Frameworks */,
-				466C3560CE4F376B5DB3C441 /* [CP] Copy Pods Resources */,
 				C324ABD81F5E8C57000B1619 /* Embed App Extensions */,
 				C348BE421F67E2B1004EAC2B /* Embed Watch Content */,
 			);
@@ -501,8 +624,6 @@
 				C3BA8D071F120DCD0082CB6C /* Sources */,
 				C3BA8D081F120DCD0082CB6C /* Frameworks */,
 				C3BA8D091F120DCD0082CB6C /* Resources */,
-				2C2FF061E5881A63D7ED2132 /* [CP] Embed Pods Frameworks */,
-				4A1FE13E946802ABABB2ACFE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -522,8 +643,6 @@
 				C3BA8D121F120DCD0082CB6C /* Sources */,
 				C3BA8D131F120DCD0082CB6C /* Frameworks */,
 				C3BA8D141F120DCD0082CB6C /* Resources */,
-				3FE8833AE00773018C299F91 /* [CP] Embed Pods Frameworks */,
-				36CC147BBABB951334BA4101 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -541,6 +660,7 @@
 			buildPhases = (
 				C3C23C071F7F96CB00BF392E /* Resources */,
 				C3C23C2D1F7F96CB00BF392E /* Embed App Extensions */,
+				F460297E6407D22A97668CCB /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -678,6 +798,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3BA8D051F120DCD0082CB6C /* LaunchScreen.storyboard in Resources */,
+				C3B28AC520D4E34F00CF473C /* Auth.plist in Resources */,
 				C35F3D471F3C62B200E87A27 /* GoogleService-Info.plist in Resources */,
 				C324ABDB1F5E95F9000B1619 /* Assets.xcassets in Resources */,
 				C3BA8D001F120DCD0082CB6C /* Main.storyboard in Resources */,
@@ -718,94 +839,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2C2FF061E5881A63D7ED2132 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiterTests/Pods-GiterTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		36CC147BBABB951334BA4101 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiterUITests/Pods-GiterUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3FE8833AE00773018C299F91 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiterUITests/Pods-GiterUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		466C3560CE4F376B5DB3C441 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Giter/Pods-Giter-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4A1FE13E946802ABABB2ACFE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiterTests/Pods-GiterTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5A3F89AFC657A83933F4FCEB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Giter-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5A5615142C6A2818446B126D /* [CP] Check Pods Manifest.lock */ = {
@@ -814,13 +863,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Giter-Giter Widget-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AE0E6014E3E994C7AC3D41A0 /* [CP] Check Pods Manifest.lock */ = {
@@ -829,28 +881,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GiterTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B0D074F3837647F7EE861152 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Giter-Giter Widget/Pods-Giter-Giter Widget-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B91B42C8C73B5FD4FB472922 /* [CP] Check Pods Manifest.lock */ = {
@@ -859,13 +899,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GiterUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D85BAF799E75303B90E2190B /* [CP] Embed Pods Frameworks */ = {
@@ -874,9 +917,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Giter/Pods-Giter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Highlightr/Highlightr.framework",
+				"${BUILT_PRODUCTS_DIR}/NVHTarGzip/NVHTarGzip.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Highlightr.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVHTarGzip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -889,28 +949,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Giter-Giter iMessage-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E1378B9A8393C1861ED4E533 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Giter-Giter iMessage/Pods-Giter-Giter iMessage-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -937,19 +985,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3B28AC120CFFED000CF473C /* OAuthRequestFactory.swift in Sources */,
 				C3A09D151F54080B006B7619 /* SecondViewController.swift in Sources */,
+				C3B28AC320D0063400CF473C /* LoginResponse.swift in Sources */,
 				C3BA8CFD1F120DCD0082CB6C /* ViewController.swift in Sources */,
+				C3B28AB720CF622200CF473C /* AbstractErrorParser.swift in Sources */,
 				C30C37BC1F9342BF001467CF /* TodayViewController.swift in Sources */,
 				C3BF2D6E1F1CCD8700AF35D9 /* RepoData.swift in Sources */,
+				C3B28AC920D7B60400CF473C /* Repository.swift in Sources */,
 				C3BA8D2B1F1211DD0082CB6C /* ManagerData.swift in Sources */,
 				C3E8A6301F36CD7A00B7903A /* FileData.swift in Sources */,
 				C30DB2851F6E088C0074F65C /* BranchData.swift in Sources */,
+				C3B28AC720D5E6B300CF473C /* RequestRouter.swift in Sources */,
+				C3CD5BF420DF5D73008F369D /* RepositoryRepository.swift in Sources */,
+				C3B28ABD20CF77CE00CF473C /* User.swift in Sources */,
+				C3B28ABB20CF62F200CF473C /* AbstractRequestFactory.swift in Sources */,
+				C3B28ABF20CFCE3C00CF473C /* AuthRequestRouter.swift in Sources */,
 				C38B209D1F6D21CC006DCF2D /* ChooseBranchController.swift in Sources */,
+				C3B28ACB20DBA4E500CF473C /* RequestFactory.swift in Sources */,
 				C3BA8CFB1F120DCD0082CB6C /* AppDelegate.swift in Sources */,
 				C39FB7CB1F262A2E000928B2 /* TextViewController.swift in Sources */,
 				C381EE381F6514F900C4B968 /* SearchViewController.swift in Sources */,
 				C3AC5E1F1F33607600284866 /* AccessData.swift in Sources */,
+				C3B28AB920CF625800CF473C /* ErrorParser.swift in Sources */,
 				C35F3D501F3C821F00E87A27 /* LoginViewController.swift in Sources */,
+				C3B28AB520CF618500CF473C /* SessionManagerFactory.swift in Sources */,
 				C3062DF51F776BB00040635F /* ManagerNotification.swift in Sources */,
 				C3BF2D6C1F1CB30E00AF35D9 /* SelfRepository.swift in Sources */,
 			);
@@ -1229,6 +1289,7 @@
 				CODE_SIGN_ENTITLEMENTS = Giter/Giter.entitlements;
 				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
 				INFOPLIST_FILE = Giter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Giter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1248,6 +1309,7 @@
 				CODE_SIGN_ENTITLEMENTS = Giter/Giter.entitlements;
 				DEVELOPMENT_TEAM = ZFHZRG4G3Z;
 				INFOPLIST_FILE = Giter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Giter;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>client_id</key>
+	<string>30d18382b199515d035a</string>
+	<key>client_secret</key>
+	<string>9cb1ca9559143eb379eb0ff7a9dc1ecfae24c22e</string>
+	<key>redirect_uri</key>
+	<string>https://giter.localhost</string>
+</dict>
+</plist>

@@ -1,11 +1,3 @@
-//
-//  ManagerData.swift
-//  Giter
-//
-//  Created by Артем Полушин on 09.07.17.
-//  Copyright © 2017 Артем Полушин. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 import SwiftyJSON
@@ -38,22 +30,7 @@ class ManagerData {
     class var singleManager: ManagerData {
         return _singleManager
     }
-    
-    private var _repoData: [RepoData] = []
-    
-    var repoData: [RepoData] {
-        var repoDataCopy: [RepoData]!
-        concurrentQueue.sync {
-            repoDataCopy = self._repoData
-        }
-        return repoDataCopy
-    }
-    
-    func getRepoDataFromDB() {
-        let realm = try! Realm()
-        self._repoData = Array(realm.objects(RepoData.self))
-    }
-    
+
     var fileList: [FileData] = [] //---List for display directory content
     
     
@@ -61,7 +38,7 @@ class ManagerData {
     let serialQueue = DispatchQueue(label: "serial_queue")
     
     func getFileContent(url: String, filename: String) {
-        Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
+        Alamofire.request(url, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -113,13 +90,13 @@ class ManagerData {
         return resultArray
     }
     
-    
+ //-----------------------------------------------------------------------------------------------------------
     func loadJSON(repository: RepoData, user: String, pathToDir: String/*, branch: String = "master"*/) {
         let file = try! Realm().objects(FileData.self).filter("url BEGINSWITH %@", "\(pathToDir)?")
         let branch = repository.currentBranch
         let realm = try! Realm()
             let selfContentURL = "\(pathToDir)?ref=\(branch)"
-            Alamofire.request(selfContentURL, method: .get, headers: credentials).validate().responseJSON() { response in
+            Alamofire.request(selfContentURL, method: .get).validate().responseJSON() { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
@@ -172,65 +149,30 @@ class ManagerData {
             
         }
     
-    
-    func loadRepoJSON(selectedRepo: String = "", branch: String = "master") {
-        var tempRepoList: [RepoData] = []
-        let repoListURL = "https://api.github.com/users/\(currentUser!)/repos"
-        
-        Alamofire.request(repoListURL, method: .get, headers: credentials).validate().responseJSON() { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                    var i: Int = 0
-                    while i < json.array!.count {
-                        let repoData = RepoData()
-                        repoData.id = json[i]["id"].intValue
-                        repoData.name = json[i]["name"].stringValue
-                        repoData.repoDescription = json[i]["description"].stringValue
-                        repoData.language = json[i]["language"].stringValue
-                        repoData.url = json[i]["url"].stringValue
-                        repoData.ownerLogin = json[i]["owner"]["login"].stringValue
-                        repoData.updatedDate = json[i]["updated_at"].stringValue
-                        repoData.fork = json[i]["fork"].boolValue
-                        if repoData.name == selectedRepo {
-                            repoData.currentBranch = branch
-                        }
-                        
-                        let oldRepo = self.loadDB(repository: repoData.name)
-                        if !oldRepo.isEmpty {
-                            if repoData.updatedDate != oldRepo[0].updatedDate {
-                                self.managerNotification.sheduleNotification(inSeconds: 10) { (success) in
-                                    if success {
-                                        print("Nitification was sended!")
-                                    } else {
-                                        print("Error of sending notification!")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        tempRepoList.append(repoData)
-                        i += 1
-                    }
-                for repo in tempRepoList {
-                    self.loadJSON(repository: repo, user: currentUser!, pathToDir: "\(repo.url)/contents")
-                  //  self.loadBranchList(repository: repo, user: currentUser!)
-                }
-                
-                
-                
-            case .failure(let error):
-                print("Error thing: \(error)")
+    let requestFactory = RequestFactory()
+    func loadRepositories() {
+        let realm = try! Realm()
+        requestFactory.getRepositories { response in
+            print("\(response)")
+            guard
+                let repositories = response.value
+            else {
+                return
+            }
+            print("----------It's here: \(repositories)")
+            loadRepo = true as AnyObject
+            try! realm.write {
+                realm.add(repositories, update: true)
             }
         }
     }
+    //------------------------------------------------------------------------------------------------------------
     
     
-    
-    func searchRepoJSON(url: String = "https://api.github.com/users/\(currentUser!))/repos") {
+    func searchRepoJSON(url: String = "https://api.github.com/users/soaltomas/repos") {
         var tempRepoList: [RepoData] = []
         
-        Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
+        Alamofire.request(url, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -250,7 +192,7 @@ class ManagerData {
                     i += 1
                 }
                 for repo in tempRepoList {
-                    self.loadJSON(repository: repo, user: currentUser!, pathToDir: "\(repo.url)/contents")
+                    self.loadJSON(repository: repo, user: "soaltomas", pathToDir: "\(repo.url)/contents")
                 }
                 
                 
@@ -264,7 +206,7 @@ class ManagerData {
     func forkRepository(owner: String, repoName: String) {
         let url = "https://api.github.com/repos/\(owner)/\(repoName)/forks"
         
-        Alamofire.request(url, method: .post, headers: credentials).validate().responseJSON() { response in
+        Alamofire.request(url, method: .post).validate().responseJSON() { response in
             switch response.result {
             case .success( _):
                 print("Repository \(owner) will be forked")
@@ -273,14 +215,14 @@ class ManagerData {
             }
         }
         
-        self.loadRepoJSON()
+    //    self.loadRepoJSON()
 
     }
     
     func loadBranchList(repository: String, user: String) {
         let realm = try! Realm()
         let url: String = "https://api.github.com/repos/\(user)/\(repository)/branches"
-        Alamofire.request(url, method: .get, headers: credentials).validate().responseJSON() { response in
+        Alamofire.request(url, method: .get).validate().responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -322,16 +264,7 @@ class ManagerData {
     func loadDirDB(pathToDir: String) -> Results<FileData> {
         return try! Realm().objects(FileData.self).filter("url BEGINSWITH %@", "\(pathToDir)?")
     }
-    
-    func loadRepoListDB() -> [RepoData] {
-        var resultList: [RepoData] = []
-        let data = try! Realm().objects(RepoData.self)
-        for value in data {
-            resultList.append(value)
-        }
-        return resultList
-    }
-    
+
     //---This function clears the filelist of the selected repository
     func clearFileListDB(repository: String) {
         let realm = try! Realm()
@@ -339,7 +272,7 @@ class ManagerData {
             let repo = try! Realm().objects(RepoData.self).filter("name BEGINSWITH %@", repository)
             repo[0].fileList.removeAll()
             realm.add(repo, update: true)
-            let files = try! Realm().objects(FileData.self).filter("url BEGINSWITH 'https://api.github.com/repos/\(currentUser!)/\(repository)'")
+            let files = try! Realm().objects(FileData.self).filter("url BEGINSWITH 'https://api.github.com/repos/soaltomas/\(repository)'")
             realm.delete(files)
         }
     }
@@ -367,26 +300,6 @@ class ManagerData {
     }
     
     
-}
-
-var credentials: [String:String]? {
-    get {
-        return UserDefaults.standard.object(forKey: "credentialHeaders") as? [String:String]
-    }
-    set {
-        UserDefaults.standard.set(newValue, forKey: "credentialHeaders")
-        UserDefaults.standard.synchronize()
-    }
-}
-
-var currentUser: String? {
-    get {
-        return UserDefaults.standard.object(forKey: "currentUser") as? String
-    }
-    set {
-        UserDefaults.standard.set(newValue, forKey: "currentUser")
-        UserDefaults.standard.synchronize()
-    }
 }
 
 var loadRepo: AnyObject? {

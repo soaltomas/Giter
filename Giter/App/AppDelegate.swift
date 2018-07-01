@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        print("-------Bla-bla-bla")
+        ManagerData.singleManager.loadRepositories()
+        print("\(RepositoryRepository.repositories)")
         FirebaseApp.configure()
         
         let center = UNUserNotificationCenter.current()
@@ -50,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            return
 //        }
 //        timer?.resume()
-            ManagerData.singleManager.loadRepoJSON()
+           ManagerData.singleManager.loadRepositories()
 //        lastUpdate = Date()
 //        timer = nil
 //        completionHandler(.newData)

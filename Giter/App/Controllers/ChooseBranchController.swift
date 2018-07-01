@@ -23,7 +23,7 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateBranches), name: NSNotification.Name(rawValue: "updateBranches"), object: nil)
-        manager.loadBranchList(repository: currentRepo, user: currentUser!)
+        manager.loadBranchList(repository: currentRepo, user: "soaltomas")
         branchPicker.delegate = self
         branchPicker.dataSource = self
     }
@@ -71,7 +71,7 @@ class ChooseBranchController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
             manager.clearFileListDB(repository: currentRepo)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "clearDataSource"), object: nil)
-            manager.loadRepoJSON(selectedRepo: currentRepo, branch: selectedBranch)
+            //manager.loadRepoJSON(selectedRepo: currentRepo, branch: selectedBranch)
         }
         
         if segue.identifier == "backToRepo" {

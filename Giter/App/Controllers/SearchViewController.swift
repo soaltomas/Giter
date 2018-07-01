@@ -63,7 +63,7 @@ class SearchViewController: UITableViewController, UITextFieldDelegate {
         let forkButton: UIButton = cell.viewWithTag(1) as! UIButton
         forkButton.layer.setValue(cell.textLabel?.text, forKey: "name")
         
-        if searchResults[indexPath.row].ownerLogin == currentUser! {
+        if searchResults[indexPath.row].ownerLogin == "soaltomas" {
             forkButton.setImage(UIImage(named: "Check-icon"), for: .normal)
         } else {
             forkButton.setImage(UIImage(named: "fork"), for: .normal)

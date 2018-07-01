@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '69FE62A3273103DC2837588C187D72EC'
-               BlueprintName = 'NVHTarGzip'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'NVHTarGzip.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "69FE62A3273103DC2837588C187D72EC"
+               BlueprintName = "NVHTarGzip"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "NVHTarGzip.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
